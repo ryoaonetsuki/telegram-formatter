@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post Formatter — TG Toolkit</title>
+<meta name="description" content="Toolbar editor for Telegram posts: bold, italic, links, quotes, lists, code — with live Telegram preview and rich-text copy that pastes with formatting intact.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html" class="active">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">✍️ Core tool</span>
+  <h1>Post <span class="grad">Formatter</span></h1>
+  <p class="sub">Select text and tap to format it — no markdown symbols to remember. Copy real rich text that pastes into Telegram with formatting intact.</p>
+  <div class="grid2" style="margin-top:20px;">
+    <section class="card">
+      <p class="panel-label">✍️ Write your post</p>
+      <div class="toolbar" role="toolbar" aria-label="Formatting">
+        <button type="button" data-cmd="bold" title="Bold (Ctrl/Cmd+B)"><b>B</b></button>
+        <button type="button" data-cmd="italic" title="Italic (Ctrl/Cmd+I)"><i>I</i></button>
+        <button type="button" data-cmd="code" title="Code">&lt;/&gt;</button>
+        <button type="button" data-cmd="quote" title="Quote">❝ Quote</button>
+        <button type="button" data-cmd="list" title="Bullet list">• List</button>
+        <button type="button" data-cmd="link" title="Add link (Ctrl/Cmd+K)">🔗 Link</button>
+        <button type="button" data-cmd="unlink" title="Remove link">Unlink</button>
+      </div>
+      <div id="linkBar">
+        <input id="linkUrl" type="url" placeholder="Paste link URL, e.g. https://github.com/…" inputmode="url">
+        <button type="button" id="linkApply">Insert link</button>
+        <button type="button" id="linkCancel">Cancel</button>
+      </div>
+      <div id="editor" contenteditable="true" data-placeholder="Write your Telegram post here… select text, then tap B, I, Quote, List or Link above."></div>
+      <p class="meta"><span id="counts">0 words · 0 characters</span> &nbsp;·&nbsp; Shortcuts: <kbd>Ctrl/Cmd+B</kbd> bold · <kbd>Ctrl/Cmd+I</kbd> italic · <kbd>Ctrl/Cmd+K</kbd> link</p>
+      <div class="btn-row">
+        <button class="btn primary" id="copyRich">📋 Copy formatted</button>
+        <button class="btn secondary" id="copyPlain">Copy plain text</button>
+        <button class="btn secondary" id="loadSample">Load sample</button>
+        <button class="btn secondary" id="clearAll">Clear</button>
+      </div>
+      <p class="status" id="status"></p>
+    </section>
+    <section class="card">
+      <p class="panel-label">💬 Preview — how it will look in Telegram</p>
+      <div class="chat-bg"><div class="bubble" id="preview"><span class="empty-hint">Your formatted message will appear here…</span></div></div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;margin-top:14px;">After <b>Copy formatted</b>, paste directly into Telegram Desktop, Telegram Web, or the mobile app. Formatting travels with the paste — no literal <code>**</code> or <code>[link](…)</code> symbols.</p>
+    </section>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+var ALLOWED_TAGS = { B: 1, STRONG: 1, I: 1, EM: 1, U: 1, S: 1, CODE: 1, A: 1, UL: 1, OL: 1, LI: 1, BLOCKQUOTE: 1, P: 1, DIV: 1, BR: 1, SPAN: 1 };
+function sanitizeHtml(html) {
+  var s = String(html || "");
+  s = s.replace(/<(script|style|iframe|object|embed|form|input|button|img|video|audio)[^>]*>[\s\S]*?<\/\1>/gi, "");
+  s = s.replace(/<(script|style|iframe|object|embed|form|input|button|img|video|audio)[^>]*\/?>/gi, "");
+  s = s.replace(/\s+on\w+\s*=\s*("[^"]*"|'[^']*'|[^\s>]+)/gi, "");
+  s = s.replace(/<\s*([a-zA-Z][a-zA-Z0-9]*)([^>]*)>/g, function (m, tag, attrs) {
+    var t = tag.toUpperCase();
+    if (t === "BR") return "<br>";
+    if (!ALLOWED_TAGS[t]) return "";
+    if (t === "A") {
+      var hm = /href\s*=\s*("[^"]*"|'[^']*')/i.exec(attrs || "");
+      var href = hm ? hm[1].slice(1, -1) : "";
+      if (/^https?:\/\//i.test(href)) return '<a href="' + href.replace(/"/g, "&quot;") + '">';
+      return "";
+    }
+    return "<" + tag.toLowerCase() + ">";
+  });
+  s = s.replace(/<\/\s*([a-zA-Z][a-zA-Z0-9]*)\s*>/g, function (m, tag) {
+    return ALLOWED_TAGS[tag.toUpperCase()] ? "</" + tag.toLowerCase() + ">" : "";
+  });
+  return s;
+}
+function htmlToPlain(html) {
+  var s = sanitizeHtml(html);
+  s = s.replace(/<\/(p|div|li|blockquote|ul|ol)>/gi, "\n").replace(/<br\s*\/?>/gi, "\n").replace(/<li>/gi, "- ");
+  s = s.replace(/<[^>]+>/g, "");
+  s = s.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&amp;/g, "&");
+  return s.replace(/\n{3,}/g, "\n\n").trim();
+}
+/* LOGIC-END */
+var editor = document.getElementById("editor");
+var preview = document.getElementById("preview");
+var status = document.getElementById("status");
+var counts = document.getElementById("counts");
+var linkBar = document.getElementById("linkBar");
+var linkUrl = document.getElementById("linkUrl");
+var savedRange = null;
+function saveSelection() { var sel = window.getSelection(); if (sel.rangeCount) savedRange = sel.getRangeAt(0).cloneRange(); }
+function restoreSelection() { if (!savedRange) return; var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(savedRange); }
+function setStatus(msg) { status.textContent = msg; setTimeout(function () { status.textContent = ""; }, 4000); }
+function render() {
+  var clean = sanitizeHtml(editor.innerHTML);
+  preview.innerHTML = clean || '<span class="empty-hint">Your formatted message will appear here…</span>';
+  var text = editor.innerText || "";
+  var words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  counts.textContent = words + " words · " + text.length + " characters";
+}
+editor.addEventListener("input", render);
+editor.addEventListener("click", saveSelection);
+editor.addEventListener("keyup", saveSelection);
+function wrapCode() {
+  var sel = window.getSelection();
+  if (!sel.rangeCount || sel.isCollapsed) { setStatus("Select some text first, then tap </>."); return; }
+  var range = sel.getRangeAt(0);
+  var code = document.createElement("code");
+  try { range.surroundContents(code); } catch (e) { code.textContent = range.toString(); range.deleteContents(); range.insertNode(code); }
+  render();
+}
+function applyCmd(cmd) {
+  editor.focus();
+  if (cmd === "bold") document.execCommand("bold");
+  else if (cmd === "italic") document.execCommand("italic");
+  else if (cmd === "code") { wrapCode(); return; }
+  else if (cmd === "quote") document.execCommand("formatBlock", false, "blockquote");
+  else if (cmd === "list") document.execCommand("insertUnorderedList");
+  else if (cmd === "unlink") document.execCommand("unlink");
+  else if (cmd === "link") { openLinkBar(); return; }
+  render(); saveSelection();
+}
+document.querySelectorAll(".toolbar button[data-cmd]").forEach(function (btn) {
+  btn.addEventListener("click", function () { applyCmd(btn.getAttribute("data-cmd")); });
+});
+function openLinkBar() {
+  saveSelection();
+  var sel = window.getSelection();
+  if (!sel.rangeCount || sel.isCollapsed) { setStatus("Select the text first, then tap Link."); return; }
+  linkBar.classList.add("open"); linkUrl.value = ""; linkUrl.focus();
+}
+function closeLinkBar() { linkBar.classList.remove("open"); }
+document.getElementById("linkApply").addEventListener("click", function () {
+  var url = (linkUrl.value || "").trim();
+  if (!/^https?:\/\//i.test(url)) { setStatus("Please enter a full link starting with https://"); linkUrl.focus(); return; }
+  closeLinkBar(); editor.focus(); restoreSelection();
+  document.execCommand("createLink", false, url);
+  render(); setStatus("🔗 Link added.");
+});
+document.getElementById("linkCancel").addEventListener("click", closeLinkBar);
+linkUrl.addEventListener("keydown", function (e) {
+  if (e.key === "Enter") { e.preventDefault(); document.getElementById("linkApply").click(); }
+  if (e.key === "Escape") closeLinkBar();
+});
+editor.addEventListener("keydown", function (e) {
+  if (!(e.ctrlKey || e.metaKey)) return;
+  var k = e.key.toLowerCase();
+  if (k === "b") { e.preventDefault(); document.execCommand("bold"); render(); }
+  else if (k === "i") { e.preventDefault(); document.execCommand("italic"); render(); }
+  else if (k === "k") { e.preventDefault(); openLinkBar(); }
+});
+document.getElementById("copyRich").addEventListener("click", async function () {
+  var html = sanitizeHtml(editor.innerHTML);
+  if (!html.replace(/<[^>]+>/g, "").trim()) { setStatus("Nothing to copy yet — write something first."); return; }
+  var plain = htmlToPlain(html);
+  try {
+    await navigator.clipboard.write([new ClipboardItem({ "text/html": new Blob([html], { type: "text/html" }), "text/plain": new Blob([plain], { type: "text/plain" }) })]);
+    setStatus("✅ Formatted text copied — paste it into Telegram.");
+  } catch (err) {
+    try {
+      var range = document.createRange(); range.selectNodeContents(preview);
+      var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(range);
+      document.execCommand("copy"); sel.removeAllRanges();
+      setStatus("✅ Formatted text copied (fallback) — paste it into Telegram.");
+    } catch (e2) { setStatus("Copy failed in this browser — try Telegram Desktop or Chrome."); }
+  }
+});
+document.getElementById("copyPlain").addEventListener("click", async function () {
+  var plain = htmlToPlain(sanitizeHtml(editor.innerHTML));
+  if (!plain) { setStatus("Nothing to copy yet — write something first."); return; }
+  try { await navigator.clipboard.writeText(plain); setStatus("✅ Plain text copied."); }
+  catch (e) { setStatus("Copy failed in this browser."); }
+});
+document.getElementById("loadSample").addEventListener("click", function () {
+  editor.innerHTML = "<div><b>NewPipe — YouTube without the tracking</b></div>"
+    + "<blockquote>A free, open-source YouTube client for Android. No Google account, no ads, no tracking.</blockquote>"
+    + "<ul><li>Watch and download videos</li><li>Background play and picture-in-picture</li><li>Subscriptions without an account</li></ul>"
+    + "<div>Get it here: <a href=\"https://github.com/TeamNewPipe/NewPipe\">NewPipe on GitHub</a></div>"
+    + "<div><code>Note:</code> download only from the official source above.</div>";
+  render(); setStatus("Sample loaded — press Copy formatted and paste it into Telegram to see it work.");
+});
+document.getElementById("clearAll").addEventListener("click", function () { editor.innerHTML = ""; render(); setStatus("Cleared."); });
+render();
+</script>
+</body>
+</html>
