@@ -3,45 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TG Toolkit — free Telegram tools, no backend, no tracking</title>
-<meta name="description" content="A free suite of Telegram tools: post formatter, stylish fonts, caption counter, link builder, markdown to Telegram HTML, poll builder, hashtag helper and post preview. No backend, no tracking.">
+<title>TG Toolkit — 51 free Telegram tools, no backend, no tracking</title>
+<meta name="description" content="51 free Telegram tools: post formatter, free AI chat, stylish fonts, counters, link builders, media tools, growth tools and bot developer tools. No backend, no tracking.">
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="topbar">
   <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
   <nav>
+    <a href="index.html" class="active">Home</a>
     <a href="formatter.html">Formatter</a>
-    <a href="fonts.html">Fonts</a>
-    <a href="counter.html">Counter</a>
-    <a href="links.html">Links</a>
-    <a href="md2html.html">MD → HTML</a>
-    <a href="poll.html">Poll</a>
-    <a href="hashtags.html">Hashtags</a>
-    <a href="preview.html">Preview</a>
+    <a href="write.html">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html">Developer</a>
   </nav>
 </div>
 <div class="wrap">
-  <span class="badge">✦ Free · No sign-up · No tracking</span>
+  <span class="badge">✦ Free · No sign-up · No tracking · 51 tools</span>
   <h1>Telegram tools that<br><span class="grad">just work.</span></h1>
-  <p class="sub">Eight free tools for Telegram posts, channels and bots. Write beautifully, count exactly, link correctly, preview honestly — all in your browser. Nothing you type ever leaves this page.</p>
-  <div class="tool-grid">
-    <a class="card tool-card" href="formatter.html"><h3>✍️ Post Formatter</h3><p>Toolbar editor — bold, italic, links, quotes, lists — with live Telegram preview and rich-text copy that pastes with formatting intact.</p><span class="go">Open Formatter →</span></a>
-    <a class="card tool-card" href="fonts.html"><h3>🔤 Stylish Fonts</h3><p>Turn plain text into bold, script, monospace and more Unicode styles, each with its own copy button.</p><span class="go">Open Fonts →</span></a>
-    <a class="card tool-card" href="counter.html"><h3>🔢 Caption &amp; Message Counter</h3><p>Live counts against Telegram's 1024-character caption and 4096-character message limits, with over-limit warnings.</p><span class="go">Open Counter →</span></a>
-    <a class="card tool-card" href="links.html"><h3>🔗 Link Builder</h3><p>Build correct t.me links for profiles, channels, posts and share-text links — validated and ready to copy.</p><span class="go">Open Link Builder →</span></a>
-    <a class="card tool-card" href="md2html.html"><h3>🧩 Markdown → Telegram HTML</h3><p>Convert markdown into Telegram Bot API HTML (&lt;b&gt;, &lt;i&gt;, &lt;a&gt;, &lt;code&gt;, &lt;blockquote&gt;) for bot developers.</p><span class="go">Open Converter →</span></a>
-    <a class="card tool-card" href="poll.html"><h3>📊 Poll Text Builder</h3><p>Write a question, add options, get clean copyable poll text for posting.</p><span class="go">Open Poll Builder →</span></a>
-    <a class="card tool-card" href="hashtags.html"><h3>#️⃣ Hashtag Helper</h3><p>Paste messy tags, get a cleaned, deduplicated hashtag list ready to copy.</p><span class="go">Open Hashtag Helper →</span></a>
-    <a class="card tool-card" href="preview.html"><h3>📱 Post Preview</h3><p>See your post rendered as a Telegram channel post, in phone width and desktop width.</p><span class="go">Open Preview →</span></a>
+  <p class="sub">Fifty-one free tools for Telegram posts, channels and bots. Search or filter below — everything runs in your browser, nothing you type ever leaves the page (except AI chats, which go to the free Pollinations API to generate replies).</p>
+  <div class="searchbox"><input id="toolSearch" type="text" placeholder="🔍 Search tools… e.g. font, qr, poll, ai" autocomplete="off"></div>
+  <div class="chips" id="chips">
+    <button class="chip on" data-cat="all">All</button>
+    <button class="chip" data-cat="write">Write</button>
+    <button class="chip" data-cat="format">Format</button>
+    <button class="chip" data-cat="ai">AI</button>
+    <button class="chip" data-cat="links">Links</button>
+    <button class="chip" data-cat="media">Media</button>
+    <button class="chip" data-cat="growth">Growth</button>
+    <button class="chip" data-cat="developer">Developer</button>
   </div>
+  <p class="meta" id="toolCount"></p>
+  <div class="tool-grid" id="toolGrid">
+    <a class="card tool-card" href="formatter.html" data-cat="write" data-name="post formatter bold italic link quote list code rich copy"><span class="cat">Write</span><h3>✍️ Post Formatter</h3><p>Toolbar editor with live Telegram preview and rich-text copy that pastes with formatting intact.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#ai-writer" data-cat="write" data-name="ai post writer draft topic tone"><span class="cat">Write</span><h3>🤖 AI Post Writer</h3><p>Topic + tone → free AI drafts a Telegram post, then sends it to the Formatter.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="preview.html" data-cat="write" data-name="post preview phone desktop channel"><span class="cat">Write</span><h3>📱 Post Preview</h3><p>See a post rendered as a Telegram channel post at phone and desktop widths.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="counter.html" data-cat="write" data-name="caption message counter 1024 4096 characters words"><span class="cat">Write</span><h3>🔢 Caption &amp; Message Counter</h3><p>Live counts against Telegram's 1024-character caption and 4096-character message limits.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#word-counter" data-cat="write" data-name="word counter characters sentences paragraphs"><span class="cat">Write</span><h3>🔢 Word Counter</h3><p>Words, characters, sentences and paragraphs, counted live.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="poll.html" data-cat="write" data-name="poll text builder question options"><span class="cat">Write</span><h3>📊 Poll Text Builder</h3><p>Question + options → clean copyable poll text for posting.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#quiz-builder" data-cat="write" data-name="quiz builder question answers"><span class="cat">Write</span><h3>❓ Quiz Builder</h3><p>Question + correct and wrong answers → copyable quiz text.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#caption-ideas" data-cat="write" data-name="caption ideas templates"><span class="cat">Write</span><h3>💡 Caption Ideas</h3><p>Template-based caption ideas in four vibes — instant, no AI needed.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#bio-generator" data-cat="write" data-name="bio generator profile"><span class="cat">Write</span><h3>👤 Bio Generator</h3><p>Three bio styles from your name, role and interests.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="write.html#reading-time" data-cat="write" data-name="reading time estimator minutes wpm"><span class="cat">Write</span><h3>⏱️ Reading Time Estimator</h3><p>Paste text, pick a speed, get the reading time in minutes.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="fonts.html" data-cat="format" data-name="stylish fonts unicode bold script monospace"><span class="cat">Format</span><h3>🔤 Stylish Fonts</h3><p>Real Unicode styles — bold, script, monospace and more — each with its own copy button.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#spoiler" data-cat="format" data-name="spoiler hidden text"><span class="cat">Format</span><h3>🙈 Spoiler Formatter</h3><p>Wrap text in spoiler markers so it hides until tapped.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#strike" data-cat="format" data-name="strikethrough underline unicode"><span class="cat">Format</span><h3>̶S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ / Underline</h3><p>Unicode struck-through or underlined characters that render anywhere.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#zalgo" data-cat="format" data-name="zalgo glitch creepy"><span class="cat">Format</span><h3>Zalgo / Glitch Text</h3><p>Glitch-style text with combining marks above and below letters.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#codeblock" data-cat="format" data-name="code block fenced"><span class="cat">Format</span><h3>💻 Code Block Builder</h3><p>Wrap code in a fenced block with an optional language label.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#quotecard" data-cat="format" data-name="quote card image png canvas"><span class="cat">Format</span><h3>🖼️ Quote Card</h3><p>Render a quote as a downloadable 1080×1080 PNG image.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#case" data-cat="format" data-name="case converter upper lower title camel snake"><span class="cat">Format</span><h3>🔠 Case Converter</h3><p>UPPER, lower, Title Case, Sentence case, camelCase, snake_case.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#reverse" data-cat="format" data-name="text reverser backwards"><span class="cat">Format</span><h3>🔄 Text Reverser</h3><p>Reverse text, emoji-safe.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#morse" data-cat="format" data-name="morse code encode decode"><span class="cat">Format</span><h3>📻 Morse Code</h3><p>Encode text to Morse, or decode Morse back to text.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#binhex" data-cat="format" data-name="binary hex converter"><span class="cat">Format</span><h3>🔢 Binary / Hex Converter</h3><p>Text to binary or hex — and back again.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#spaces" data-cat="format" data-name="remove extra spaces clean"><span class="cat">Format</span><h3>🧹 Remove Extra Spaces</h3><p>Collapse repeated spaces and trim every line.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#join" data-cat="format" data-name="join lines separator"><span class="cat">Format</span><h3>🔗 Join Lines</h3><p>Join lines with a space, comma or pipe.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#sort" data-cat="format" data-name="sort lines alphabetical"><span class="cat">Format</span><h3>🔤 Sort Lines</h3><p>Sort lines A–Z or Z–A.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#dedupe" data-cat="format" data-name="remove duplicate lines unique"><span class="cat">Format</span><h3>🧽 Remove Duplicate Lines</h3><p>Keep the first occurrence of each line, in order.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#emoji" data-cat="format" data-name="emoji remover strip"><span class="cat">Format</span><h3>🚫 Emoji Remover</h3><p>Strip emoji characters, keep the words.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#diff" data-cat="format" data-name="text diff compare drafts"><span class="cat">Format</span><h3>🔍 Text Diff</h3><p>Compare two drafts line by line — added, removed, unchanged.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#lorem" data-cat="format" data-name="lorem ipsum placeholder dummy"><span class="cat">Format</span><h3>📄 Lorem / Placeholder Text</h3><p>Classic placeholder paragraphs for mockups.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="format.html#slug" data-cat="format" data-name="slug generator url"><span class="cat">Format</span><h3>🔗 Slug Generator</h3><p>Turn a title into a clean URL slug.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="ai.html" data-cat="ai" data-name="ai chat free no key pollinations"><span class="cat">AI</span><h3>🤖 AI Chat</h3><p>Free AI chat — no API key. Powered by the Pollinations free API.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="links.html" data-cat="links" data-name="link builder t.me profile channel post"><span class="cat">Links</span><h3>🔗 Link Builder</h3><p>Validated t.me links for profiles, channels and posts.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#share" data-cat="links" data-name="share link generator"><span class="cat">Links</span><h3>📤 Share Link Generator</h3><p>t.me/share/url links that open Telegram's share sheet.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#deeplink" data-cat="links" data-name="deep link bot start startgroup"><span class="cat">Links</span><h3>🤖 Deep Link Builder</h3><p>Bot deep links with start / startgroup payloads.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#cleaner" data-cat="links" data-name="link cleaner tracking utm fbclid"><span class="cat">Links</span><h3>🧹 Link Cleaner</h3><p>Strip tracking parameters from URLs.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#extractor" data-cat="links" data-name="link extractor urls from text"><span class="cat">Links</span><h3>🔍 Link Extractor</h3><p>Pull every unique URL out of pasted text.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#mentions" data-cat="links" data-name="mention extractor usernames"><span class="cat">Links</span><h3>👤 Mention Extractor</h3><p>Pull every unique @username out of pasted text.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#qr" data-cat="links" data-name="qr code generator png"><span class="cat">Links</span><h3>🔳 QR Code Generator</h3><p>QR codes for t.me links, generated locally, downloadable as PNG.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="links2.html#utm" data-cat="links" data-name="utm builder source medium campaign"><span class="cat">Links</span><h3>🏷️ UTM Builder</h3><p>Add utm_source, utm_medium and utm_campaign to a URL.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="media.html#compress" data-cat="media" data-name="image compressor resize jpeg"><span class="cat">Media</span><h3>🗜️ Image Compressor</h3><p>Shrink images by width and JPEG quality, in your browser.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="media.html#sticker" data-cat="media" data-name="sticker resizer 512 telegram"><span class="cat">Media</span><h3>🎨 Sticker Resizer</h3><p>Resize any image to Telegram's 512px sticker spec.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="media.html#palette" data-cat="media" data-name="color palette shades hex"><span class="cat">Media</span><h3>🎨 Color Palette Generator</h3><p>Five shades from one base color, click to copy hex.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="media.html#gradient" data-cat="media" data-name="gradient text css"><span class="cat">Media</span><h3>🌈 Gradient Text Preview</h3><p>Preview gradient text and copy the CSS snippet.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="media.html#aspect" data-cat="media" data-name="aspect ratio calculator"><span class="cat">Media</span><h3>📐 Aspect Ratio Calculator</h3><p>Width and height → simplified ratio like 16:9.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="hashtags.html" data-cat="growth" data-name="hashtag helper clean dedupe"><span class="cat">Growth</span><h3>#️⃣ Hashtag Helper</h3><p>Cleaned, deduplicated hashtag lists from messy input.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="growth.html#giveaway" data-cat="growth" data-name="giveaway winner picker random"><span class="cat">Growth</span><h3>🎁 Giveaway Winner Picker</h3><p>Cryptographically random winner draws from entrant names.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="growth.html#countdown" data-cat="growth" data-name="countdown days hours"><span class="cat">Growth</span><h3>⏳ Countdown Text</h3><p>Live countdown + a copyable countdown line for posts.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="growth.html#timeconv" data-cat="growth" data-name="post time converter timezone dhaka"><span class="cat">Growth</span><h3>🕐 Post Time Converter</h3><p>Convert posting times between time zones (Dhaka default).</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="growth.html#pollresults" data-cat="growth" data-name="poll results formatter votes percentage"><span class="cat">Growth</span><h3>📊 Poll Results Formatter</h3><p>Votes → totals, percentages and a formatted results post.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="growth.html#goal" data-cat="growth" data-name="follower goal progress percent"><span class="cat">Growth</span><h3>🎯 Follower Goal Progress</h3><p>Current vs goal — percentage, remaining and a progress bar.</p><span class="go">Open →</span></a>
+
+    <a class="card tool-card" href="md2html.html" data-cat="developer" data-name="markdown telegram html bot api converter"><span class="cat">Developer</span><h3>🧩 Markdown → Telegram HTML</h3><p>Markdown into Bot API HTML for bot developers.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="dev.html#keyboard" data-cat="developer" data-name="inline keyboard json builder buttons"><span class="cat">Developer</span><h3>⌨️ Inline Keyboard JSON Builder</h3><p>Button rows → valid inline_keyboard JSON for sendMessage.</p><span class="go">Open →</span></a>
+    <a class="card tool-card" href="dev.html#commands" data-cat="developer" data-name="bot commands json setmycommands"><span class="cat">Developer</span><h3>💬 Bot Commands JSON Builder</h3><p>Commands array for setMyCommands, validated.</p><span class="go">Open →</span></a>
+  </div>
+  <p class="meta" id="noMatch" style="display:none;">No tools match that search — try another word.</p>
   <div class="card howto" style="margin-top:20px;">
-    <h2 style="margin-top:0;">Why pasting markdown fails in Telegram</h2>
-    <p>Telegram's message box does not render markdown pasted as plain text — <code>**bold**</code> shows up literally. The Post Formatter fixes this by putting real formatted HTML on the clipboard, so Telegram receives the formatting itself.</p>
+    <h2 style="margin-top:0;">About the free AI</h2>
+    <p>AI Chat and AI Post Writer use the <b>Pollinations free text API</b> — a real third-party shared service, not our own model, and not unlimited. It needs no API key and stores nothing here, but it can be slow or busy at times. If it fails, you will see the error and a retry button — replies are never faked.</p>
+    <h2>Design</h2>
+    <p>Built with the <b>solid-glass design system</b> (MIT, deeplethe/solid-glass) — thick panes of smoked glass, a line of light along the top edge, a hairline all round, a shadow underneath. Adapted as a standalone dark theme for this site.</p>
   </div>
 </div>
 <footer>
-  <p>TG Toolkit — free to use, no sign-up, no data collected. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p>TG Toolkit — free to use, no sign-up, no data collected. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT). Design: solid-glass (MIT, deeplethe/solid-glass).</p>
 </footer>
+<script>
+var search = document.getElementById("toolSearch");
+var chips = document.querySelectorAll("#chips .chip");
+var cards = Array.from(document.querySelectorAll("#toolGrid .tool-card"));
+var countEl = document.getElementById("toolCount");
+var noMatch = document.getElementById("noMatch");
+var activeCat = "all";
+function filter() {
+  var q = (search.value || "").toLowerCase().trim();
+  var shown = 0;
+  cards.forEach(function (c) {
+    var okCat = activeCat === "all" || c.getAttribute("data-cat") === activeCat;
+    var hay = (c.textContent + " " + (c.getAttribute("data-name") || "")).toLowerCase();
+    var okQ = !q || hay.indexOf(q) !== -1;
+    c.style.display = (okCat && okQ) ? "" : "none";
+    if (okCat && okQ) shown++;
+  });
+  countEl.textContent = "Showing " + shown + " of " + cards.length + " tools";
+  noMatch.style.display = shown ? "none" : "block";
+}
+search.addEventListener("input", filter);
+chips.forEach(function (ch) {
+  ch.addEventListener("click", function () {
+    chips.forEach(function (x) { x.classList.remove("on"); });
+    ch.classList.add("on");
+    activeCat = ch.getAttribute("data-cat");
+    filter();
+  });
+});
+filter();
+</script>
 </body>
 </html>
