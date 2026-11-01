@@ -6,14 +6,12 @@
 <title>Link Tools — TG Toolkit</title>
 <meta name="description" content="Telegram link tools: share links, bot deep links, link cleaner, link extractor, mention extractor, QR codes and UTM builder.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 <script src="assets/qrcode.js"></script>
 </head>
 <body>
 <aside class="sidebar">
-  <a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg1)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a>
+  <a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a>
   <nav class="side-nav">
     <a href="index.html"><svg class="ic nav-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -63,10 +61,7 @@
   </nav>
   <p class="side-foot">Free · No backend · No tracking<br>Icons by Lucide (MIT)</p>
 </aside>
-<header class="mobiletop"><a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg2)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
+<header class="mobiletop"><a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
 <div class="wrap">
   <span class="badge"><svg class="ic badge-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
@@ -78,7 +73,7 @@
   <p class="sub">Share links, bot deep links, cleaning, extraction, QR codes and UTM tags — all validated in your browser. (For basic profile/channel/post links, see the <a href="links.html">Link Builder</a>.)</p>
 
   <section class="card tool-section" id="share">
-    <h2>📤 Share Link Generator</h2>
+    <h2>Share Link Generator</h2>
     <p class="desc">Build a t.me/share/url link that opens Telegram's share sheet with your link and text.</p>
     <label for="shUrl">Link to share</label>
     <input id="shUrl" type="url" placeholder="https://example.com/article" inputmode="url">
@@ -90,7 +85,7 @@
   </section>
 
   <section class="card tool-section" id="deeplink">
-    <h2>🤖 Deep Link Builder</h2>
+    <h2>Deep Link Builder</h2>
     <p class="desc">Build bot deep links: t.me/yourbot?start=payload (also startgroup for adding to groups). Payloads are validated to Telegram's allowed characters.</p>
     <label for="dlBot">Bot username (without @)</label>
     <input id="dlBot" type="text" placeholder="e.g. mycoolbot">
@@ -104,7 +99,7 @@
   </section>
 
   <section class="card tool-section" id="cleaner">
-    <h2>🧹 Link Cleaner</h2>
+    <h2>Link Cleaner</h2>
     <p class="desc">Strip tracking parameters (utm_*, fbclid, gclid, etc.) from a URL, keeping the real address.</p>
     <label for="clIn">Messy URL</label>
     <input id="clIn" type="url" placeholder="https://example.com/page?utm_source=telegram&fbclid=abc&id=5" inputmode="url">
@@ -113,7 +108,7 @@
   </section>
 
   <section class="card tool-section" id="extractor">
-    <h2>🔍 Link Extractor</h2>
+    <h2>Link Extractor</h2>
     <p class="desc">Pull every unique URL out of pasted text.</p>
     <textarea id="exIn" placeholder="Paste text containing links…" style="min-height:110px;"></textarea>
     <pre class="out" id="exOut">—</pre>
@@ -121,7 +116,7 @@
   </section>
 
   <section class="card tool-section" id="mentions">
-    <h2>👤 Mention Extractor</h2>
+    <h2>Mention Extractor</h2>
     <p class="desc">Pull every unique @username out of pasted text.</p>
     <textarea id="meIn" placeholder="Paste text with @usernames…" style="min-height:110px;"></textarea>
     <pre class="out" id="meOut">—</pre>
@@ -129,7 +124,7 @@
   </section>
 
   <section class="card tool-section" id="qr">
-    <h2>🔳 QR Code Generator</h2>
+    <h2>QR Code Generator</h2>
     <p class="desc">Make a QR code for any t.me link (or any text) and download it as a PNG. Generated locally with the qrcode-generator library (MIT) — nothing is uploaded.</p>
     <label for="qrText">Text or link</label>
     <input id="qrText" type="text" placeholder="e.g. https://t.me/telegram">
@@ -141,7 +136,7 @@
   </section>
 
   <section class="card tool-section" id="utm">
-    <h2>🏷️ UTM Builder</h2>
+    <h2>UTM Builder</h2>
     <p class="desc">Add utm_source, utm_medium and utm_campaign to a URL for tracking where traffic came from.</p>
     <label for="utBase">Base URL</label>
     <input id="utBase" type="url" placeholder="https://example.com/page" inputmode="url">
@@ -157,7 +152,7 @@
   </section>
 </div>
 <footer>
-  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p><a href="index.html"><svg class="ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All tools</a> · TG Toolkit — no backend, no tracking. Source: <svg class="ic brand-ic" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
 </footer>
 <script>
 /* LOGIC-START */
@@ -219,7 +214,7 @@ function copyOut(id) { var v = document.getElementById(id).textContent; if (v &&
 function renderShare() {
   var r = buildShareLink(document.getElementById("shUrl").value, document.getElementById("shText").value);
   var err = document.getElementById("shErr");
-  if (r.error && document.getElementById("shUrl").value.trim()) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  if (r.error && document.getElementById("shUrl").value.trim()) { err.style.display = "block"; err.textContent = "" + r.error; } else err.style.display = "none";
   showOut("shOut", r.link);
 }
 ["shUrl", "shText"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderShare); });
@@ -227,14 +222,14 @@ document.getElementById("shCopy").addEventListener("click", function () { copyOu
 function renderDl() {
   var r = buildDeepLink(document.getElementById("dlBot").value, document.getElementById("dlPayload").value, document.getElementById("dlMode").value);
   var err = document.getElementById("dlErr");
-  if (r.error && (document.getElementById("dlBot").value.trim() || document.getElementById("dlPayload").value.trim())) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  if (r.error && (document.getElementById("dlBot").value.trim() || document.getElementById("dlPayload").value.trim())) { err.style.display = "block"; err.textContent = "" + r.error; } else err.style.display = "none";
   showOut("dlOut", r.link);
 }
 ["dlBot", "dlPayload", "dlMode"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderDl); document.getElementById(id).addEventListener("change", renderDl); });
 document.getElementById("dlCopy").addEventListener("click", function () { copyOut("dlOut"); });
 document.getElementById("clIn").addEventListener("input", function () {
   var r = cleanUrl(document.getElementById("clIn").value);
-  showOut("clOut", r.cleaned ? r.cleaned + (r.removed ? "\n(" + r.removed + " tracking parameter(s) removed)" : "\n(no tracking parameters found)") : "");
+  showOut("clOut", r.cleaned ? r.cleaned + (r.removed ? "\n("+ r.removed + " tracking parameter(s) removed)" : "\n(no tracking parameters found)") : "");
 });
 document.getElementById("clCopy").addEventListener("click", function () {
   var v = document.getElementById("clOut").textContent.split("\n")[0]; if (v && v !== "—") navigator.clipboard.writeText(v).catch(function () {});
@@ -246,7 +241,7 @@ document.getElementById("exIn").addEventListener("input", function () {
 document.getElementById("exCopy").addEventListener("click", function () { copyOut("exOut"); });
 document.getElementById("meIn").addEventListener("input", function () {
   var ms = extractMentions(document.getElementById("meIn").value);
-  showOut("meOut", ms.length ? ms.join(" ") : "");
+  showOut("meOut", ms.length ? ms.join("") : "");
 });
 document.getElementById("meCopy").addEventListener("click", function () { copyOut("meOut"); });
 // QR
@@ -282,7 +277,7 @@ document.getElementById("qrDl").addEventListener("click", function () {
 function renderUtm() {
   var r = buildUtm(document.getElementById("utBase").value, document.getElementById("utSource").value, document.getElementById("utMedium").value, document.getElementById("utCamp").value);
   var err = document.getElementById("utErr");
-  if (r.error && document.getElementById("utBase").value.trim()) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  if (r.error && document.getElementById("utBase").value.trim()) { err.style.display = "block"; err.textContent = "" + r.error; } else err.style.display = "none";
   showOut("utOut", r.link);
 }
 ["utBase", "utSource", "utMedium", "utCamp"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderUtm); });
@@ -317,6 +312,6 @@ renderShare(); renderDl(); renderUtm();
   <line x1="8" x2="16" y1="12" y2="12" />
 </svg><span>Links</span></a>
 </nav>
-<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking; AI chats use the free Pollinations API. Icons by <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT). Design: custom glassmorphism system. Previously styled with solid-glass (MIT) — see README history.</footer>
+<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking. Free AI: Puter.js (no key) with Pollinations fallback. Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT) for UI, <a href="https://simpleicons.org" rel="noopener">Simple Icons</a> (CC0) for brand marks.</footer>
 </body>
 </html>

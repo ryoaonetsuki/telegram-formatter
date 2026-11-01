@@ -6,13 +6,11 @@
 <title>Media Tools — TG Toolkit</title>
 <meta name="description" content="Media tools for Telegram: image compressor, sticker resizer to the 512px spec, color palette generator, gradient text preview and aspect ratio calculator.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
 <aside class="sidebar">
-  <a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg1)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a>
+  <a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a>
   <nav class="side-nav">
     <a href="index.html"><svg class="ic nav-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -62,10 +60,7 @@
   </nav>
   <p class="side-foot">Free · No backend · No tracking<br>Icons by Lucide (MIT)</p>
 </aside>
-<header class="mobiletop"><a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg2)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
+<header class="mobiletop"><a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
 <div class="wrap">
   <span class="badge"><svg class="ic badge-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
@@ -77,7 +72,7 @@
   <p class="sub">Images stay in your browser — compression and resizing happen on canvas, nothing is uploaded.</p>
 
   <section class="card tool-section" id="compress">
-    <h2>🗜️ Image Compressor</h2>
+    <h2>Image Compressor</h2>
     <p class="desc">Shrink an image by max width and JPEG quality, then download it.</p>
     <label for="cpFile">Choose an image</label>
     <input id="cpFile" type="file" accept="image/*">
@@ -90,7 +85,7 @@
   </section>
 
   <section class="card tool-section" id="sticker">
-    <h2>🎨 Sticker Resizer</h2>
+    <h2>Sticker Resizer</h2>
     <p class="desc">Resize any image to Telegram's sticker spec: one side exactly 512px, the other 512px or smaller, transparent background preserved for PNGs.</p>
     <label for="stFile">Choose an image</label>
     <input id="stFile" type="file" accept="image/*">
@@ -99,7 +94,7 @@
   </section>
 
   <section class="card tool-section" id="palette">
-    <h2>🎨 Color Palette Generator</h2>
+    <h2>Color Palette Generator</h2>
     <p class="desc">Pick a base color, get five shades from dark to light — click any swatch to copy its hex.</p>
     <label for="palBase">Base color</label>
     <input id="palBase" type="color" value="#2aabee" style="height:52px;padding:6px;">
@@ -108,7 +103,7 @@
   </section>
 
   <section class="card tool-section" id="gradient">
-    <h2>🌈 Gradient Text Preview</h2>
+    <h2>Gradient Text Preview</h2>
     <p class="desc">Preview gradient text and copy the CSS snippet.</p>
     <label for="grText">Text</label>
     <input id="grText" type="text" placeholder="e.g. Hello Telegram" value="Hello Telegram">
@@ -122,8 +117,8 @@
   </section>
 
   <section class="card tool-section" id="aspect">
-    <h2>📐 Aspect Ratio Calculator</h2>
-    <p class="desc">Enter width and height, get the simplified ratio (e.g. 1920×1080 → 16:9).</p>
+    <h2>Aspect Ratio Calculator</h2>
+    <p class="desc">Enter width and height, get the simplified ratio (e.g. 1920×1080 to 16:9).</p>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
       <div><label for="arW">Width</label><input id="arW" type="number" placeholder="1920" value="1920"></div>
       <div><label for="arH">Height</label><input id="arH" type="number" placeholder="1080" value="1080"></div>
@@ -132,7 +127,7 @@
   </section>
 </div>
 <footer>
-  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p><a href="index.html"><svg class="ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All tools</a> · TG Toolkit — no backend, no tracking. Source: <svg class="ic brand-ic" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
 </footer>
 <script>
 /* LOGIC-START */
@@ -193,7 +188,7 @@ document.getElementById("cpFile").addEventListener("change", function (e) {
     var dims = maxW ? fitSize(img.width, img.height, maxW) : [img.width, img.height];
     cpCanvas.width = dims[0]; cpCanvas.height = dims[1];
     cpCanvas.getContext("2d").drawImage(img, 0, 0, dims[0], dims[1]);
-    document.getElementById("cpInfo").textContent = "Original: " + img.width + "×" + img.height + " → Compressed: " + dims[0] + "×" + dims[1] + " (JPEG, quality " + document.getElementById("cpQ").value + ")";
+    document.getElementById("cpInfo").textContent = "Original: " + img.width + "×" + img.height + " to Compressed: " + dims[0] + "×" + dims[1] + " (JPEG, quality " + document.getElementById("cpQ").value + ")";
     document.getElementById("cpDl").style.display = "";
   });
 });
@@ -211,7 +206,7 @@ document.getElementById("stFile").addEventListener("change", function (e) {
     var dims = stickerSize(img.width, img.height);
     stCanvas.width = dims[0]; stCanvas.height = dims[1];
     stCanvas.getContext("2d").drawImage(img, 0, 0, dims[0], dims[1]);
-    document.getElementById("stInfo").textContent = "Original: " + img.width + "×" + img.height + " → Sticker: " + dims[0] + "×" + dims[1] + " (one side exactly 512px, PNG with transparency)";
+    document.getElementById("stInfo").textContent = "Original: " + img.width + "×" + img.height + " to Sticker: " + dims[0] + "×" + dims[1] + " (one side exactly 512px, PNG with transparency)";
     document.getElementById("stDl").style.display = "";
   });
 });
@@ -230,7 +225,7 @@ function renderPalette() {
     sw.style.cssText = "width:64px;height:64px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:" + hex + ";cursor:pointer;";
     sw.title = "Copy " + hex;
     sw.addEventListener("click", function () {
-      navigator.clipboard.writeText(hex).then(function () { document.getElementById("palStatus").textContent = "✅ Copied " + hex; }).catch(function () {});
+      navigator.clipboard.writeText(hex).then(function () { document.getElementById("palStatus").textContent = "Copied " + hex; }).catch(function () {});
     });
     var lbl = document.createElement("div");
     lbl.style.cssText = "text-align:center;font-size:12px;color:var(--muted);margin-top:4px;";
@@ -260,7 +255,7 @@ renderGradient();
 // Aspect
 function renderAspect() {
   var r = aspectRatio(document.getElementById("arW").value, document.getElementById("arH").value);
-  document.getElementById("arOut").textContent = r ? "📐 " + r : "Enter a valid width and height.";
+  document.getElementById("arOut").textContent = r ? " " + r : "Enter a valid width and height.";
 }
 ["arW", "arH"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderAspect); });
 renderAspect();
@@ -293,6 +288,6 @@ renderAspect();
   <line x1="8" x2="16" y1="12" y2="12" />
 </svg><span>Links</span></a>
 </nav>
-<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking; AI chats use the free Pollinations API. Icons by <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT). Design: custom glassmorphism system. Previously styled with solid-glass (MIT) — see README history.</footer>
+<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking. Free AI: Puter.js (no key) with Pollinations fallback. Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT) for UI, <a href="https://simpleicons.org" rel="noopener">Simple Icons</a> (CC0) for brand marks.</footer>
 </body>
 </html>

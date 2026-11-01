@@ -6,13 +6,12 @@
 <title>Write Tools — TG Toolkit</title>
 <meta name="description" content="Writing tools for Telegram: AI post writer, word counter, quiz builder, caption ideas, bio generator and reading time.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
+<script src="https://js.puter.com/v2/"></script>
 </head>
 <body>
 <aside class="sidebar">
-  <a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg1)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a>
+  <a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a>
   <nav class="side-nav">
     <a href="index.html"><svg class="ic nav-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -62,10 +61,7 @@
   </nav>
   <p class="side-foot">Free · No backend · No tracking<br>Icons by Lucide (MIT)</p>
 </aside>
-<header class="mobiletop"><a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg2)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
+<header class="mobiletop"><a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
 <div class="wrap">
   <span class="badge"><svg class="ic badge-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
@@ -77,33 +73,33 @@
   <p class="sub">Draft, count and shape Telegram posts. The AI writer uses a free shared service (see the note) — everything else runs entirely in your browser.</p>
 
   <section class="card tool-section" id="ai-writer">
-    <h2>🤖 AI Post Writer</h2>
-    <p class="desc">Describe a topic, pick a tone, and the free AI drafts a Telegram post. Then send it to the Post Formatter for bold, links and final polish. Free AI, powered by Pollinations free API — a shared free service, so it can be slow or busy at times. No API key, nothing stored.</p>
+    <h2>AI Post Writer</h2>
+    <p class="desc">Describe a topic, pick a tone, and the free AI drafts a Telegram post. Then send it to the Post Formatter for bold, links and final polish. Free AI, powered by Puter.js (no key) with Pollinations as fallback — shared free services, so replies can be slow or busy at times. No API key, nothing stored.</p>
     <label for="aiTopic">Topic</label>
     <input id="aiTopic" type="text" placeholder="e.g. a free Android app that blocks ads">
     <label for="aiTone">Tone</label>
     <select id="aiTone"><option>Helpful and clear</option><option>Short and punchy</option><option>Friendly and fun</option><option>Professional</option></select>
     <label for="aiLen">Length</label>
     <select id="aiLen"><option value="short">Short (~60 words)</option><option value="medium">Medium (~120 words)</option><option value="long">Long (~200 words)</option></select>
-    <div class="btn-row"><button class="btn primary" id="aiWriteBtn">✨ Draft my post</button></div>
+    <div class="btn-row"><button class="btn primary" id="aiWriteBtn">Draft my post</button></div>
     <pre class="out" id="aiWriteOut">Your AI draft will appear here…</pre>
     <p id="aiWriteErr" class="warn" style="display:none;"></p>
     <div class="btn-row">
       <button class="btn secondary" id="aiWriteRetry" style="display:none;">Retry</button>
       <button class="btn secondary" id="aiWriteCopy" style="display:none;">Copy draft</button>
-      <button class="btn secondary" id="aiWriteSend" style="display:none;">Send to Formatter →</button>
+      <button class="btn secondary" id="aiWriteSend" style="display:none;">Send to Formatter </button>
     </div>
   </section>
 
   <section class="card tool-section" id="word-counter">
-    <h2>🔢 Word Counter</h2>
+    <h2>Word Counter</h2>
     <p class="desc">Words, characters (with and without spaces), sentences and paragraphs — live as you type.</p>
     <textarea id="wcInput" placeholder="Paste or type text…" style="min-height:140px;"></textarea>
     <p class="meta" id="wcOut">0 words · 0 characters · 0 characters without spaces · 0 sentences · 0 paragraphs</p>
   </section>
 
   <section class="card tool-section" id="quiz-builder">
-    <h2>❓ Quiz Builder</h2>
+    <h2>Quiz Builder</h2>
     <p class="desc">Write a quiz question with one correct answer and wrong answers, get clean copyable quiz text (correct answer marked for you, the creator).</p>
     <label for="quizQ">Question</label>
     <input id="quizQ" type="text" placeholder="e.g. Which planet is known as the Red Planet?">
@@ -113,12 +109,12 @@
     <textarea id="quizWrong" placeholder="Venus&#10;Jupiter&#10;Saturn" style="min-height:110px;"></textarea>
     <pre class="out" id="quizOut">Your quiz text will appear here…</pre>
     <p id="quizErr" class="warn" style="display:none;"></p>
-    <div class="btn-row"><button class="btn primary" id="quizCopy">📋 Copy quiz text</button></div>
+    <div class="btn-row"><button class="btn primary" id="quizCopy">Copy quiz text</button></div>
     <p class="status" id="quizStatus"></p>
   </section>
 
   <section class="card tool-section" id="caption-ideas">
-    <h2>💡 Caption Ideas</h2>
+    <h2>Caption Ideas</h2>
     <p class="desc">Template-based caption ideas — no AI, instant. Pick a vibe, get five captions with your topic filled in.</p>
     <label for="capTopic">Topic</label>
     <input id="capTopic" type="text" placeholder="e.g. morning motivation">
@@ -131,7 +127,7 @@
   </section>
 
   <section class="card tool-section" id="bio-generator">
-    <h2>👤 Bio Generator</h2>
+    <h2>Bio Generator</h2>
     <p class="desc">Template-based bios from your name, role and interests — three styles to pick from.</p>
     <label for="bioName">Name</label>
     <input id="bioName" type="text" placeholder="e.g. Salman">
@@ -146,7 +142,7 @@
   </section>
 
   <section class="card tool-section" id="reading-time">
-    <h2>⏱️ Reading Time Estimator</h2>
+    <h2>Reading Time Estimator</h2>
     <p class="desc">Paste text, pick a reading speed, get the estimated reading time.</p>
     <textarea id="rtInput" placeholder="Paste text…" style="min-height:120px;"></textarea>
     <label for="rtWpm">Reading speed</label>
@@ -155,7 +151,7 @@
   </section>
 </div>
 <footer>
-  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking (AI writer uses the Pollinations free API). Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p><a href="index.html"><svg class="ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All tools</a> · TG Toolkit — no backend, no tracking (AI writer uses the free Puter.js AI, Pollinations fallback). Source: <svg class="ic brand-ic" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
 </footer>
 <script>
 /* LOGIC-START */
@@ -178,9 +174,9 @@ function buildQuiz(q, right, wrongs) {
   if (!question) return { error: "Write a quiz question first.", text: "" };
   if (!r) return { error: "Write the correct answer.", text: "" };
   if (!ws.length) return { error: "Add at least one wrong answer.", text: "" };
-  var lines = ["❓ " + question, ""];
-  lines.push("✅ " + r + "  (correct)");
-  ws.forEach(function (w, i) { lines.push("▫️ " + w); });
+  var lines = [" " + question, ""];
+  lines.push("" + r + "  (correct)");
+  ws.forEach(function (w, i) { lines.push("• " + w); });
   return { error: null, text: lines.join("\n") };
 }
 var CAPTION_TEMPLATES = {
@@ -211,7 +207,7 @@ function aiWriterPrompt(topic, tone, len) {
 /* LOGIC-END */
 function copyText(text, statusEl, okMsg) {
   if (!text) { statusEl.textContent = "Nothing to copy yet."; return; }
-  navigator.clipboard.writeText(text).then(function () { statusEl.textContent = okMsg || "✅ Copied."; })
+  navigator.clipboard.writeText(text).then(function () { statusEl.textContent = okMsg || " Copied."; })
     .catch(function () { statusEl.textContent = "Copy failed in this browser."; });
 }
 // Word counter
@@ -224,7 +220,7 @@ wcInput.addEventListener("input", function () {
 function renderRT() {
   var s = countWords(document.getElementById("rtInput").value);
   var wpm = parseInt(document.getElementById("rtWpm").value, 10);
-  document.getElementById("rtOut").textContent = s.words === 0 ? "—" : "⏱️ About " + readingMinutes(s.words, wpm) + " minute" + (readingMinutes(s.words, wpm) > 1 ? "s" : "") + " (" + s.words + " words at " + wpm + " wpm)";
+  document.getElementById("rtOut").textContent = s.words === 0 ? "—" : " About " + readingMinutes(s.words, wpm) + " minute" + (readingMinutes(s.words, wpm) > 1 ? "s" : "") + " ("+ s.words + " words at " + wpm + " wpm)";
 }
 document.getElementById("rtInput").addEventListener("input", renderRT);
 document.getElementById("rtWpm").addEventListener("change", renderRT);
@@ -232,14 +228,14 @@ document.getElementById("rtWpm").addEventListener("change", renderRT);
 function renderQuiz() {
   var res = buildQuiz(document.getElementById("quizQ").value, document.getElementById("quizRight").value, document.getElementById("quizWrong").value.split("\n"));
   var err = document.getElementById("quizErr");
-  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  if (res.error) { err.style.display = "block"; err.textContent = "" + res.error; } else err.style.display = "none";
   document.getElementById("quizOut").textContent = res.text || "Your quiz text will appear here…";
   return res;
 }
 ["quizQ", "quizRight", "quizWrong"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderQuiz); });
 document.getElementById("quizCopy").addEventListener("click", function () {
   var res = renderQuiz();
-  copyText(res.text, document.getElementById("quizStatus"), "✅ Quiz text copied.");
+  copyText(res.text, document.getElementById("quizStatus"), " Quiz text copied.");
 });
 // Caption ideas
 function renderCaps() {
@@ -249,7 +245,7 @@ function renderCaps() {
 }
 document.getElementById("capGen").addEventListener("click", renderCaps);
 document.getElementById("capCopy").addEventListener("click", function () {
-  copyText(renderCaps().join("\n"), document.getElementById("capStatus"), "✅ Caption ideas copied.");
+  copyText(renderCaps().join("\n"), document.getElementById("capStatus"), " Caption ideas copied.");
 });
 // Bio
 function renderBio() {
@@ -259,23 +255,43 @@ function renderBio() {
 }
 document.getElementById("bioGen").addEventListener("click", renderBio);
 document.getElementById("bioCopy").addEventListener("click", function () {
-  copyText(renderBio().join("\n\n"), document.getElementById("bioStatus"), "✅ Bios copied.");
+  copyText(renderBio().join("\n\n"), document.getElementById("bioStatus"), " Bios copied.");
 });
 // AI writer
 var aiOut = document.getElementById("aiWriteOut");
 var aiErr = document.getElementById("aiWriteErr");
+async function askAI(prompt) {
+  function norm(r) {
+    if (typeof r === "string") return r.trim();
+    if (r && r.message && r.message.content) return String(r.message.content).trim();
+    if (r && r.text) return String(r.text).trim();
+    return "";
+  }
+  if (typeof puter !== "undefined" && puter.ai && puter.ai.chat) {
+    try {
+      var t = norm(await puter.ai.chat(prompt, { model: "z-ai/glm-5.3-flash" }));
+      if (t) return t;
+    } catch (e) {}
+    try {
+      var t2 = norm(await puter.ai.chat(prompt));
+      if (t2) return t2;
+    } catch (e2) {}
+  }
+  var res = await fetch("https://text.pollinations.ai/" + encodeURIComponent(prompt), { headers: { Accept: "text/plain" } });
+  if (!res.ok) throw new Error("AI service returned " + res.status);
+  var text = (await res.text()).trim();
+  if (!text) throw new Error("AI service returned an empty reply");
+  return text;
+}
 async function runAiWriter() {
   var topic = document.getElementById("aiTopic").value.trim();
-  if (!topic) { aiErr.style.display = "block"; aiErr.textContent = "⚠️ Write a topic first."; return; }
+  if (!topic) { aiErr.style.display = "block"; aiErr.textContent = "Write a topic first."; return; }
   aiErr.style.display = "none";
-  aiOut.textContent = "⏳ Drafting with the free AI… (shared service, may take a few seconds)";
+  aiOut.textContent = "Drafting with the free AI… (shared service, may take a few seconds)";
   document.getElementById("aiWriteRetry").style.display = "none";
   var prompt = aiWriterPrompt(topic, document.getElementById("aiTone").value, document.getElementById("aiLen").value);
   try {
-    var res = await fetch("https://text.pollinations.ai/" + encodeURIComponent(prompt), { headers: { Accept: "text/plain" } });
-    if (!res.ok) throw new Error("AI service returned " + res.status);
-    var text = (await res.text()).trim();
-    if (!text) throw new Error("AI service returned an empty reply");
+    var text = await askAI(prompt);
     aiOut.textContent = text;
     document.getElementById("aiWriteCopy").style.display = "";
     document.getElementById("aiWriteSend").style.display = "";
@@ -283,7 +299,7 @@ async function runAiWriter() {
   } catch (e) {
     aiOut.textContent = "AI draft failed.";
     aiErr.style.display = "block";
-    aiErr.textContent = "⚠️ The free AI service could not reply right now (" + e.message + "). It is a shared free service — please retry in a bit. Nothing was faked: no draft was invented.";
+    aiErr.textContent = "The free AI service could not reply right now ("+ e.message + "). It is a shared free service — please retry in a bit. Nothing was faked: no draft was invented.";
     document.getElementById("aiWriteRetry").style.display = "";
   }
 }
@@ -326,6 +342,6 @@ renderQuiz(); renderCaps(); renderBio(); renderRT();
   <line x1="8" x2="16" y1="12" y2="12" />
 </svg><span>Links</span></a>
 </nav>
-<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking; AI chats use the free Pollinations API. Icons by <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT). Design: custom glassmorphism system. Previously styled with solid-glass (MIT) — see README history.</footer>
+<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking. Free AI: Puter.js (no key) with Pollinations fallback. Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT) for UI, <a href="https://simpleicons.org" rel="noopener">Simple Icons</a> (CC0) for brand marks.</footer>
 </body>
 </html>

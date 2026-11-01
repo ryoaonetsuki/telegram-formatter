@@ -6,13 +6,11 @@
 <title>Format Tools — TG Toolkit</title>
 <meta name="description" content="Text formatting tools: spoiler, strikethrough, zalgo, code blocks, quote cards, case converter, morse, binary, sorting, diff and more.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
 <aside class="sidebar">
-  <a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg1)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a>
+  <a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a>
   <nav class="side-nav">
     <a href="index.html"><svg class="ic nav-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -62,10 +60,7 @@
   </nav>
   <p class="side-foot">Free · No backend · No tracking<br>Icons by Lucide (MIT)</p>
 </aside>
-<header class="mobiletop"><a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg2)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
+<header class="mobiletop"><a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
 <div class="wrap">
   <span class="badge"><svg class="ic badge-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
@@ -77,7 +72,7 @@
   <p class="sub">Seventeen small-but-real text tools. Each one works instantly in your browser — type, transform, copy.</p>
 
   <section class="card tool-section" id="spoiler">
-    <h2>🙈 Spoiler Formatter</h2>
+    <h2>Spoiler Formatter</h2>
     <p class="desc">Wrap text in Telegram spoiler markers so it hides until tapped.</p>
     <textarea id="spIn" placeholder="Text to hide…" style="min-height:90px;"></textarea>
     <pre class="out" id="spOut">—</pre>
@@ -103,7 +98,7 @@
   </section>
 
   <section class="card tool-section" id="codeblock">
-    <h2>💻 Code Block Builder</h2>
+    <h2>Code Block Builder</h2>
     <p class="desc">Wrap code in a fenced block, optionally with a language label.</p>
     <label for="cbLang">Language (optional)</label>
     <input id="cbLang" type="text" placeholder="e.g. python">
@@ -113,7 +108,7 @@
   </section>
 
   <section class="card tool-section" id="quotecard">
-    <h2>🖼️ Quote Card</h2>
+    <h2>Quote Card</h2>
     <p class="desc">Render a quote as a shareable image (1080×1080 PNG) — drawn on canvas, downloaded from your browser.</p>
     <label for="qcText">Quote</label>
     <textarea id="qcText" placeholder="The quote…" style="min-height:90px;"></textarea>
@@ -124,7 +119,7 @@
   </section>
 
   <section class="card tool-section" id="case">
-    <h2>🔠 Case Converter</h2>
+    <h2>Case Converter</h2>
     <p class="desc">Convert between UPPER, lower, Title Case, Sentence case, camelCase and snake_case.</p>
     <textarea id="ccIn" placeholder="Text…" style="min-height:90px;"></textarea>
     <label for="ccMode">Convert to</label>
@@ -134,7 +129,7 @@
   </section>
 
   <section class="card tool-section" id="reverse">
-    <h2>🔄 Text Reverser</h2>
+    <h2>Text Reverser</h2>
     <p class="desc">Reverses text (emoji-safe).</p>
     <textarea id="rvIn" placeholder="Text…" style="min-height:90px;"></textarea>
     <pre class="out" id="rvOut">—</pre>
@@ -142,27 +137,27 @@
   </section>
 
   <section class="card tool-section" id="morse">
-    <h2>📻 Morse Code</h2>
+    <h2>Morse Code</h2>
     <p class="desc">Encode text to Morse, or decode Morse back to text.</p>
     <textarea id="moIn" placeholder="Text or morse (dots, dashes, spaces; / between words)…" style="min-height:90px;"></textarea>
     <label for="moMode">Direction</label>
-    <select id="moMode"><option value="enc">Text → Morse</option><option value="dec">Morse → Text</option></select>
+    <select id="moMode"><option value="enc">Text to Morse</option><option value="dec">Morse to Text</option></select>
     <pre class="out" id="moOut">—</pre>
     <div class="btn-row"><button class="btn secondary" id="moCopy">Copy</button></div>
   </section>
 
   <section class="card tool-section" id="binhex">
-    <h2>🔢 Binary / Hex Converter</h2>
+    <h2>Binary / Hex Converter</h2>
     <p class="desc">Convert text to binary or hex, and back again.</p>
     <textarea id="bhIn" placeholder="Text, binary (space-separated) or hex…" style="min-height:90px;"></textarea>
     <label for="bhMode">Convert</label>
-    <select id="bhMode"><option value="bin">Text → Binary</option><option value="hex">Text → Hex</option><option value="bin2">Binary → Text</option><option value="hex2">Hex → Text</option></select>
+    <select id="bhMode"><option value="bin">Text to Binary</option><option value="hex">Text to Hex</option><option value="bin2">Binary to Text</option><option value="hex2">Hex to Text</option></select>
     <pre class="out" id="bhOut">—</pre>
     <div class="btn-row"><button class="btn secondary" id="bhCopy">Copy</button></div>
   </section>
 
   <section class="card tool-section" id="spaces">
-    <h2>🧹 Remove Extra Spaces</h2>
+    <h2>Remove Extra Spaces</h2>
     <p class="desc">Collapses repeated spaces and trims every line.</p>
     <textarea id="rsIn" placeholder="Messy   text…" style="min-height:90px;"></textarea>
     <pre class="out" id="rsOut">—</pre>
@@ -170,7 +165,7 @@
   </section>
 
   <section class="card tool-section" id="join">
-    <h2>🔗 Join Lines</h2>
+    <h2>Join Lines</h2>
     <p class="desc">Join lines with a separator you choose.</p>
     <textarea id="jnIn" placeholder="One&#10;per&#10;line" style="min-height:90px;"></textarea>
     <label for="jnSep">Separator</label>
@@ -180,17 +175,17 @@
   </section>
 
   <section class="card tool-section" id="sort">
-    <h2>🔤 Sort Lines</h2>
+    <h2>Sort Lines</h2>
     <p class="desc">Sort lines alphabetically, A–Z or Z–A.</p>
     <textarea id="soIn" placeholder="Lines…" style="min-height:90px;"></textarea>
     <label for="soMode">Order</label>
-    <select id="soMode"><option value="az">A → Z</option><option value="za">Z → A</option></select>
+    <select id="soMode"><option value="az">A to Z</option><option value="za">Z to A</option></select>
     <pre class="out" id="soOut">—</pre>
     <div class="btn-row"><button class="btn secondary" id="soCopy">Copy</button></div>
   </section>
 
   <section class="card tool-section" id="dedupe">
-    <h2>🧽 Remove Duplicate Lines</h2>
+    <h2>Remove Duplicate Lines</h2>
     <p class="desc">Keeps the first occurrence of each line, in order.</p>
     <textarea id="ddIn" placeholder="Lines…" style="min-height:90px;"></textarea>
     <pre class="out" id="ddOut">—</pre>
@@ -198,15 +193,15 @@
   </section>
 
   <section class="card tool-section" id="emoji">
-    <h2>🚫 Emoji Remover</h2>
+    <h2>Emoji Remover</h2>
     <p class="desc">Strips emoji characters from text, keeping the words.</p>
-    <textarea id="emIn" placeholder="Text with emoji 😀…" style="min-height:90px;"></textarea>
+    <textarea id="emIn" placeholder="Text with emoji …" style="min-height:90px;"></textarea>
     <pre class="out" id="emOut">—</pre>
     <div class="btn-row"><button class="btn secondary" id="emCopy">Copy</button></div>
   </section>
 
   <section class="card tool-section" id="diff">
-    <h2>🔍 Text Diff</h2>
+    <h2>Text Diff</h2>
     <p class="desc">Compare two drafts line by line: removed lines, added lines, unchanged lines.</p>
     <label for="dfA">Original</label>
     <textarea id="dfA" placeholder="Original text…" style="min-height:90px;"></textarea>
@@ -216,7 +211,7 @@
   </section>
 
   <section class="card tool-section" id="lorem">
-    <h2>📄 Lorem / Placeholder Text</h2>
+    <h2>Lorem / Placeholder Text</h2>
     <p class="desc">Generate classic placeholder paragraphs for mockups.</p>
     <label for="loN">Paragraphs</label>
     <select id="loN"><option>1</option><option selected>2</option><option>3</option><option>5</option></select>
@@ -225,7 +220,7 @@
   </section>
 
   <section class="card tool-section" id="slug">
-    <h2>🔗 Slug Generator</h2>
+    <h2>Slug Generator</h2>
     <p class="desc">Turn a title into a clean URL slug.</p>
     <input id="slIn" type="text" placeholder="e.g. My First Telegram Post!">
     <pre class="out" id="slOut">—</pre>
@@ -233,7 +228,7 @@
   </section>
 </div>
 <footer>
-  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p><a href="index.html"><svg class="ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All tools</a> · TG Toolkit — no backend, no tracking. Source: <svg class="ic brand-ic" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
 </footer>
 <script>
 /* LOGIC-START */
@@ -247,7 +242,7 @@ var ZALGO_DN = ["̙", "̜", "̝", "̞", "̟", "̠", "̡", "̢", "̣"];
 function zalgo(t) {
   var out = "", idx = 0;
   String(t || "").split("").forEach(function (c) {
-    if (c === " " || c === "\n") { out += c; return; }
+    if (c === "" || c === "\n") { out += c; return; }
     out += c + ZALGO_UP[idx % ZALGO_UP.length] + ZALGO_DN[idx % ZALGO_DN.length];
     idx++;
   });
@@ -270,17 +265,17 @@ var MORSE = { A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--
 var MORSE_REV = {};
 Object.keys(MORSE).forEach(function (k) { MORSE_REV[MORSE[k]] = k; });
 function morseEncode(t) {
-  return String(t || "").toUpperCase().split(" ").map(function (w) {
-    return w.split("").map(function (c) { return MORSE[c] || ""; }).filter(Boolean).join(" ");
-  }).join(" / ");
+  return String(t || "").toUpperCase().split("").map(function (w) {
+    return w.split("").map(function (c) { return MORSE[c] || ""; }).filter(Boolean).join("");
+  }).join("/ ");
 }
 function morseDecode(t) {
-  return String(t || "").split(" / ").map(function (w) {
+  return String(t || "").split("/ ").map(function (w) {
     return w.trim().split(/\s+/).map(function (c) { return MORSE_REV[c] || ""; }).join("");
-  }).join(" ");
+  }).join("");
 }
-function toBin(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(2).padStart(8, "0"); }).join(" "); }
-function toHex(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join(" "); }
+function toBin(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(2).padStart(8, "0"); }).join(""); }
+function toHex(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join(""); }
 function fromBin(t) { return String(t || "").trim().split(/\s+/).map(function (b) { return String.fromCharCode(parseInt(b, 2)); }).join(""); }
 function fromHex(t) { return (String(t || "").replace(/\s+/g, "").match(/../g) || []).map(function (h) { return String.fromCharCode(parseInt(h, 16)); }).join(""); }
 function cleanSpaces(t) { return String(t || "").split("\n").map(function (l) { return l.replace(/\s+/g, " ").trim(); }).join("\n"); }
@@ -295,7 +290,7 @@ function lineDiff(a, b) {
   for (var x = A.length - 1; x >= 0; x--) for (var y = B.length - 1; y >= 0; y--) dp[x][y] = A[x] === B[y] ? dp[x + 1][y + 1] + 1 : Math.max(dp[x + 1][y], dp[x][y + 1]);
   var out = [], p = 0, q = 0;
   while (p < A.length && q < B.length) {
-    if (A[p] === B[q]) { out.push("  " + A[p]); p++; q++; }
+    if (A[p] === B[q]) { out.push(" " + A[p]); p++; q++; }
     else if (dp[p + 1][q] >= dp[p][q + 1]) { out.push("- " + A[p]); p++; }
     else { out.push("+ " + B[q]); q++; }
   }
@@ -309,7 +304,7 @@ function lorem(n) {
   for (var i = 0; i < n; i++) {
     var sents = [];
     for (var j = 0; j < 4; j++) sents.push(LOREM_S[(i * 4 + j) % LOREM_S.length]);
-    paras.push(sents.join(" "));
+    paras.push(sents.join(""));
   }
   return paras.join("\n\n");
 }
@@ -356,7 +351,7 @@ bindSimple("bhIn", "bhOut", "bhCopy", function () {
     if (m === "hex") return toHex(v);
     if (m === "bin2") return fromBin(v);
     return fromHex(v);
-  } catch (e) { return "⚠️ Could not convert — check the input format."; }
+  } catch (e) { return " Could not convert — check the input format."; }
 }, "bhMode");
 bindSimple("rsIn", "rsOut", "rsCopy", function () { return cleanSpaces(document.getElementById("rsIn").value); });
 bindSimple("jnIn", "jnOut", "jnCopy", function () { return joinLines(document.getElementById("jnIn").value, document.getElementById("jnSep").value); }, "jnSep");
@@ -420,6 +415,6 @@ document.getElementById("qcDl").addEventListener("click", function () {
   <line x1="8" x2="16" y1="12" y2="12" />
 </svg><span>Links</span></a>
 </nav>
-<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking; AI chats use the free Pollinations API. Icons by <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT). Design: custom glassmorphism system. Previously styled with solid-glass (MIT) — see README history.</footer>
+<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking. Free AI: Puter.js (no key) with Pollinations fallback. Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT) for UI, <a href="https://simpleicons.org" rel="noopener">Simple Icons</a> (CC0) for brand marks.</footer>
 </body>
 </html>

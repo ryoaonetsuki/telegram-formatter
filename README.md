@@ -1,6 +1,6 @@
 # TG Toolkit
 
-A free suite of **51 Telegram tools**. No backend, no tracking, no sign-up — everything runs in your browser, and nothing you type ever leaves the page (except AI chats, which go to the free Pollinations API to generate replies).
+A free suite of **51 Telegram tools**. No backend, no tracking, no sign-up — everything runs in your browser, and nothing you type ever leaves the page (except AI chats, which go to the free AI service to generate replies).
 
 Live site: https://ryoaonetsuki.github.io/telegram-formatter/ (GitHub Pages)
 
@@ -23,7 +23,7 @@ Live site: https://ryoaonetsuki.github.io/telegram-formatter/ (GitHub Pages)
 - **Spoiler Formatter, Strikethrough/Underline, Zalgo/Glitch, Code Block Builder, Quote Card** (canvas → downloadable PNG), **Case Converter, Text Reverser, Morse Code, Binary/Hex Converter, Remove Extra Spaces, Join Lines, Sort Lines, Remove Duplicate Lines, Emoji Remover, Text Diff, Lorem/Placeholder, Slug Generator** (all on `format.html`)
 
 ### AI (1 new; AI Post Writer counted under Write)
-- **AI Chat** (`ai.html`) — free chat, no API key, powered by the Pollinations free API
+- **AI Chat** (`ai.html`) — free chat, no API key, powered by the free Puter.js AI with Pollinations as fallback
 
 ### Links (8)
 - **Link Builder** (`links.html`) — validated t.me profile/channel/post links
@@ -42,7 +42,7 @@ Live site: https://ryoaonetsuki.github.io/telegram-formatter/ (GitHub Pages)
 
 ## Free AI — how it works, and its limits
 
-AI Chat and AI Post Writer call the **Pollinations free text API** (`https://text.pollinations.ai/`) directly from your browser with a GET request. No API key, no account, nothing stored here. It is a real third-party **shared free service** — not our own model, not unlimited — so it can be slow or busy at times. If it fails, the UI shows the error and a retry button; replies are never faked. Do not paste passwords or private information into the AI chat (your prompt is sent to Pollinations to generate the reply).
+AI Chat and AI Post Writer call the **free Puter.js AI** (Puter.js SDK, no API key) first, and fall back to the **Pollinations free text API** (`https://text.pollinations.ai/`, GET request) if Puter fails. Neither needs an API key and nothing is stored here. Both are real third-party **shared free services** — not our own model, not unlimited — so replies can be slow or busy at times, and heavy Puter use may ask you to sign in to a free Puter account. If both fail, the UI shows the error and a retry button; replies are never faked. Do not paste passwords or private information into the AI chat (your prompt is sent to the free AI service to generate the reply).
 
 ## Why the Post Formatter exists
 
@@ -50,11 +50,11 @@ Telegram's message box does not render markdown pasted as plain text. Copying `*
 
 ## Design
 
-Custom premium glassmorphism system in `assets/style.css`: deep backdrop blur, layered translucent panes, gradient hairline borders and soft top reflections over rich dark gradients. App-shell layout — a sidebar on desktop (content pane beside it) and a bottom navigation bar on mobile, so the site feels like a desktop app on desktop and an Android app on phones.
+Design v3 in `assets/style.css`: premium dark product design — solid refined panels, hairline borders, one restrained accent family, clear typography and spacing (no gradients, no glows, no backdrop blur). App-shell layout — a sidebar on desktop (content pane beside it) and a bottom navigation bar on mobile, so the site feels like a desktop app on desktop and an Android app on phones.
 
-Icons are **Lucide** (MIT, https://lucide.dev) — SVGs vendored locally under `assets/icons/` and inlined at build time; no CDN hotlink, no emoji-as-icons. The logo is an original gradient glass tile with a Lucide send mark. The QR code library is qrcode-generator by Kazuhiko Arase (MIT), vendored locally in `assets/qrcode.js` with its license header intact.
+Icons are **Lucide** (MIT, https://lucide.dev) for UI and **Simple Icons** (CC0, https://simpleicons.org) for real brand marks — SVGs vendored locally under `assets/icons/` and inlined at build time; no CDN hotlink for icons, no emoji-as-icons anywhere in UI chrome. The logo is an original geometric mark (`assets/logo.svg`: solid accent tile, double-chevron construction). The QR code library is qrcode-generator by Kazuhiko Arase (MIT), vendored locally in `assets/qrcode.js` with its license header intact.
 
-Design history: an earlier version of this site was styled with the solid-glass design system (MIT, deeplethe/solid-glass). That styling was replaced in the 2026-11-01 redesign; no solid-glass CSS ships anymore, and no solid-glass docs content, logos, or text were ever copied.
+Design history: v1 of this site was styled with the solid-glass design system (MIT, deeplethe/solid-glass); v2 used a custom glassmorphism system. Both were replaced in the 2026-11-01 v3 redesign; neither ships anymore, and no solid-glass docs content, logos, or text were ever copied.
 
 ## Run it locally
 

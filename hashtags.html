@@ -6,13 +6,11 @@
 <title>Hashtag Helper — TG Toolkit</title>
 <meta name="description" content="Paste messy tags or text and get a cleaned, deduplicated hashtag list ready to copy for Telegram.">
 <link rel="stylesheet" href="assets/style.css">
+<link rel="icon" type="image/svg+xml" href="assets/logo.svg">
 </head>
 <body>
 <aside class="sidebar">
-  <a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg1)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a>
+  <a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a>
   <nav class="side-nav">
     <a href="index.html"><svg class="ic nav-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
@@ -62,17 +60,14 @@
   </nav>
   <p class="side-foot">Free · No backend · No tracking<br>Icons by Lucide (MIT)</p>
 </aside>
-<header class="mobiletop"><a class="logo" href="index.html"><span class="logo-tile"><svg viewBox="0 0 48 48" aria-hidden="true"><defs><linearGradient id="lg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2aabee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs><rect x="2" y="2" width="44" height="44" rx="13" fill="url(#lg2)"/><ellipse cx="24" cy="12" rx="16" ry="6" fill="#ffffff" opacity="0.28"/><g transform="translate(13,13) scale(0.92)" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-  <path d="m21.854 2.147-10.94 10.939" />
-</g></svg></span><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
+<header class="mobiletop"><a class="logo" href="index.html"><img class="logo-img" src="assets/logo.svg" alt="TG Toolkit logo"><span class="logo-text">TG <em>Toolkit</em></span></a><span class="mobile-pill">51 tools</span></header>
 <div class="wrap">
   <span class="badge"><svg class="ic badge-ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
   <path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
   <path d="M20 2v4" />
   <path d="M22 4h-4" />
   <circle cx="4" cy="20" r="2" />
-</svg>#️⃣ Clean tags</span>
+</svg># Clean tags</span>
   <h1>Hashtag <span class="grad">Helper</span></h1>
   <p class="sub">Paste tags or a whole caption — get a cleaned, deduplicated hashtag list. Duplicates are removed, stray symbols are stripped, and every tag gets its #.</p>
   <div class="card" style="margin-top:20px;">
@@ -86,13 +81,13 @@
     <p id="tagMeta" class="meta"></p>
     <p id="tagWarn" class="warn" style="display:none;"></p>
     <div class="btn-row">
-      <button class="btn primary" id="copyTags">📋 Copy hashtags</button>
+      <button class="btn primary" id="copyTags">Copy hashtags</button>
     </div>
     <p class="status" id="tagStatus"></p>
   </div>
 </div>
 <footer>
-  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+  <p><a href="index.html"><svg class="ic" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg> All tools</a> · TG Toolkit — no backend, no tracking. Source: <svg class="ic brand-ic" fill="currentColor" role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
 </footer>
 <script>
 /* LOGIC-START */
@@ -113,9 +108,9 @@ var warn = document.getElementById("tagWarn");
 var status = document.getElementById("tagStatus");
 function render() {
   var tags = cleanHashtags(input.value);
-  outEl.textContent = tags.length ? tags.join(" ") : "Your cleaned hashtags will appear here…";
+  outEl.textContent = tags.length ? tags.join("") : "Your cleaned hashtags will appear here…";
   meta.textContent = tags.length ? tags.length + " hashtag" + (tags.length > 1 ? "s" : "") : "";
-  if (tags.length > 30) { warn.style.display = "block"; warn.textContent = "⚠️ Over 30 hashtags — long tag lists look spammy and bury your post. Consider keeping the best ones."; }
+  if (tags.length > 30) { warn.style.display = "block"; warn.textContent = "Over 30 hashtags — long tag lists look spammy and bury your post. Consider keeping the best ones."; }
   else warn.style.display = "none";
 }
 input.addEventListener("input", render);
@@ -127,7 +122,7 @@ document.getElementById("tagClear").addEventListener("click", function () { inpu
 document.getElementById("copyTags").addEventListener("click", async function () {
   var tags = cleanHashtags(input.value);
   if (!tags.length) { status.textContent = "Nothing to copy yet."; return; }
-  try { await navigator.clipboard.writeText(tags.join(" ")); status.textContent = "✅ Hashtags copied."; }
+  try { await navigator.clipboard.writeText(tags.join("")); status.textContent = "Hashtags copied."; }
   catch (e) { status.textContent = "Copy failed in this browser."; }
 });
 render();
@@ -160,6 +155,6 @@ render();
   <line x1="8" x2="16" y1="12" y2="12" />
 </svg><span>Links</span></a>
 </nav>
-<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking; AI chats use the free Pollinations API. Icons by <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT). Design: custom glassmorphism system. Previously styled with solid-glass (MIT) — see README history.</footer>
+<footer class="sitefoot">TG Toolkit — 51 free tools for Telegram posts, channels and bots. No backend, no tracking. Free AI: Puter.js (no key) with Pollinations fallback. Icons: <a href="https://lucide.dev" rel="noopener">Lucide</a> (MIT) for UI, <a href="https://simpleicons.org" rel="noopener">Simple Icons</a> (CC0) for brand marks.</footer>
 </body>
 </html>
