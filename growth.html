@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Channel Growth Tools — TG Toolkit</title>
+<meta name="description" content="Channel growth tools: giveaway winner picker, countdown text, post time converter, poll results formatter and follower goal progress.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html" class="active">Growth</a>
+    <a href="dev.html">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">📈 Growth</span>
+  <h1>Channel <span class="grad">growth</span></h1>
+  <p class="sub">Giveaways, countdowns, time zones, poll results and goals — the small tools channel admins actually reach for. (For hashtags, see the <a href="hashtags.html">Hashtag Helper</a>.)</p>
+
+  <section class="card tool-section" id="giveaway">
+    <h2>🎁 Giveaway Winner Picker</h2>
+    <p class="desc">Paste entrant names (one per line), pick how many winners — drawn with the browser's cryptographic random generator, so the draw is verifiably random, not hand-picked.</p>
+    <textarea id="gvNames" placeholder="One name per line…" style="min-height:110px;"></textarea>
+    <label for="gvN">Number of winners</label>
+    <select id="gvN"><option>1</option><option>2</option><option>3</option><option>5</option></select>
+    <div class="btn-row"><button class="btn primary" id="gvPick">Pick winner(s)</button></div>
+    <pre class="out" id="gvOut">—</pre>
+    <p id="gvErr" class="warn" style="display:none;"></p>
+  </section>
+
+  <section class="card tool-section" id="countdown">
+    <h2>⏳ Countdown Text</h2>
+    <p class="desc">Pick a target date and time — get a live countdown and a copyable countdown line for your post.</p>
+    <label for="cdDate">Target date &amp; time</label>
+    <input id="cdDate" type="datetime-local">
+    <p class="meta" id="cdOut" style="font-size:18px;color:var(--text);">Pick a target date and time.</p>
+    <div class="btn-row"><button class="btn secondary" id="cdCopy">Copy countdown line</button></div>
+  </section>
+
+  <section class="card tool-section" id="timeconv">
+    <h2>🕐 Post Time Converter</h2>
+    <p class="desc">Convert a posting time between time zones (defaults to Asia/Dhaka). Uses the browser's Intl time-zone data, so daylight saving is handled correctly.</p>
+    <label for="tcTime">Time (HH:MM, 24-hour)</label>
+    <input id="tcTime" type="text" placeholder="e.g. 19:13" value="19:13">
+    <label for="tcFrom">From time zone</label>
+    <select id="tcFrom"></select>
+    <label for="tcTo">To time zone</label>
+    <select id="tcTo"></select>
+    <p class="meta" id="tcOut" style="font-size:18px;color:var(--text);">—</p>
+  </section>
+
+  <section class="card tool-section" id="pollresults">
+    <h2>📊 Poll Results Formatter</h2>
+    <p class="desc">Paste "option: votes" lines — get totals, percentages and a clean formatted results post.</p>
+    <textarea id="prIn" placeholder="NewPipe: 42&#10;Seal: 27&#10;SmartTube: 11" style="min-height:110px;"></textarea>
+    <pre class="out" id="prOut">—</pre>
+    <p id="prErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn secondary" id="prCopy">Copy results</button></div>
+  </section>
+
+  <section class="card tool-section" id="goal">
+    <h2>🎯 Follower Goal Progress</h2>
+    <p class="desc">Current followers vs goal — percentage, remaining count and a progress bar you can screenshot or quote.</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+      <div><label for="goCur">Current followers</label><input id="goCur" type="number" placeholder="993" value="993"></div>
+      <div><label for="goGoal">Goal</label><input id="goGoal" type="number" placeholder="1000" value="1000"></div>
+    </div>
+    <p class="meta" id="goOut" style="font-size:18px;color:var(--text);">—</p>
+    <div class="meter" id="goMeter"><div></div></div>
+  </section>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function pickWinners(names, count, randFn) {
+  var pool = names.map(function (n) { return String(n || "").trim(); }).filter(Boolean);
+  var uniq = [], seen = {};
+  pool.forEach(function (n) { if (!seen[n]) { seen[n] = true; uniq.push(n); } });
+  if (!uniq.length) return { error: "Paste at least one entrant name.", winners: [] };
+  if (count > uniq.length) return { error: "Winners (" + count + ") exceed entrants (" + uniq.length + ").", winners: [] };
+  var arr = uniq.slice();
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(randFn() * (i + 1));
+    var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return { error: null, winners: arr.slice(0, count) };
+}
+function countdownParts(targetMs, nowMs) {
+  var diff = targetMs - nowMs;
+  if (diff <= 0) return { past: true, days: 0, hours: 0, mins: 0, secs: 0 };
+  var s = Math.floor(diff / 1000);
+  return { past: false, days: Math.floor(s / 86400), hours: Math.floor(s % 86400 / 3600), mins: Math.floor(s % 3600 / 60), secs: s % 60 };
+}
+function countdownLine(p) {
+  if (p.past) return "The countdown has ended.";
+  var parts = [];
+  if (p.days) parts.push(p.days + " day" + (p.days > 1 ? "s" : ""));
+  if (p.hours) parts.push(p.hours + " hour" + (p.hours > 1 ? "s" : ""));
+  if (p.mins) parts.push(p.mins + " minute" + (p.mins > 1 ? "s" : ""));
+  if (!p.days && !p.hours) parts.push(p.secs + " second" + (p.secs !== 1 ? "s" : ""));
+  return "⏳ " + parts.join(", ") + " left";
+}
+function parsePollResults(text) {
+  var rows = [];
+  String(text || "").split("\n").forEach(function (line) {
+    var m = /^(.*?):\s*(\d+)\s*$/.exec(line.trim());
+    if (m) rows.push({ option: m[1].trim(), votes: parseInt(m[2], 10) });
+  });
+  var total = rows.reduce(function (a, r) { return a + r.votes; }, 0);
+  return { rows: rows, total: total };
+}
+function formatPollResults(text) {
+  var parsed = parsePollResults(text);
+  if (!parsed.rows.length) return { error: "Write results as “option: votes” lines.", text: "" };
+  var lines = ["📊 Poll results — " + parsed.total + " votes total", ""];
+  parsed.rows.forEach(function (r) {
+    var pct = parsed.total ? Math.round(r.votes / parsed.total * 100) : 0;
+    var bar = "█".repeat(Math.round(pct / 10)) + "░".repeat(10 - Math.round(pct / 10));
+    lines.push(r.option + " — " + r.votes + " votes (" + pct + "%) " + bar);
+  });
+  return { error: null, text: lines.join("\n") };
+}
+function goalProgress(cur, goal) {
+  cur = parseInt(cur, 10); goal = parseInt(goal, 10);
+  if (!goal || goal <= 0) return { error: "Enter a goal above zero.", pct: 0, remaining: 0 };
+  if (!cur || cur < 0) cur = 0;
+  return { error: null, pct: Math.min(100, Math.round(cur / goal * 100)), remaining: Math.max(0, goal - cur) };
+}
+/* LOGIC-END */
+function cryptoRand() {
+  var a = new Uint32Array(1);
+  window.crypto.getRandomValues(a);
+  return a[0] / 4294967296;
+}
+document.getElementById("gvPick").addEventListener("click", function () {
+  var res = pickWinners(document.getElementById("gvNames").value.split("\n"), parseInt(document.getElementById("gvN").value, 10), cryptoRand);
+  var err = document.getElementById("gvErr");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; document.getElementById("gvOut").textContent = "—"; }
+  else { err.style.display = "none"; document.getElementById("gvOut").textContent = "🎉 Winner" + (res.winners.length > 1 ? "s" : "") + ":\n" + res.winners.map(function (w, i) { return (i + 1) + ". " + w; }).join("\n") + "\n\n(Drawn with crypto.getRandomValues — random, not hand-picked.)"; }
+});
+// Countdown
+var cdTarget = null;
+document.getElementById("cdDate").addEventListener("change", function (e) {
+  cdTarget = e.target.value ? new Date(e.target.value).getTime() : null;
+});
+setInterval(function () {
+  if (!cdTarget) return;
+  var p = countdownParts(cdTarget, Date.now());
+  document.getElementById("cdOut").textContent = countdownLine(p);
+}, 1000);
+document.getElementById("cdCopy").addEventListener("click", function () {
+  var v = document.getElementById("cdOut").textContent;
+  if (v && v !== "Pick a target date and time.") navigator.clipboard.writeText(v).catch(function () {});
+});
+// Time converter
+var ZONES = ["Asia/Dhaka", "UTC", "Asia/Kolkata", "Asia/Dubai", "Europe/London", "Europe/Berlin", "America/New_York", "America/Los_Angeles", "Asia/Singapore", "Asia/Tokyo", "Australia/Sydney"];
+var fromSel = document.getElementById("tcFrom"), toSel = document.getElementById("tcTo");
+ZONES.forEach(function (z) {
+  var o1 = document.createElement("option"); o1.value = z; o1.textContent = z; fromSel.appendChild(o1);
+  var o2 = document.createElement("option"); o2.value = z; o2.textContent = z; toSel.appendChild(o2);
+});
+fromSel.value = "Asia/Dhaka"; toSel.value = "UTC";
+function convertTime() {
+  var m = /^(\d{1,2}):(\d{2})$/.exec(document.getElementById("tcTime").value.trim());
+  if (!m) { document.getElementById("tcOut").textContent = "Enter a time like 19:13."; return; }
+  var hh = parseInt(m[1], 10), mm = parseInt(m[2], 10);
+  if (hh > 23 || mm > 59) { document.getElementById("tcOut").textContent = "Enter a valid time (00:00–23:59)."; return; }
+  try {
+    var from = fromSel.value, to = toSel.value;
+    var ref = new Date(Date.UTC(2026, 0, 1, 12, 0, 0));
+    function offset(tz) {
+      var s = new Intl.DateTimeFormat("en-US", { timeZone: tz, hour: "2-digit", minute: "2-digit", hour12: false }).format(ref);
+      var parts = s.split(":").map(Number);
+      var mins = parts[0] * 60 + parts[1] - 12 * 60;
+      if (mins > 720) mins -= 1440; if (mins < -720) mins += 1440;
+      return mins;
+    }
+    var total = hh * 60 + mm + (offset(to) - offset(from));
+    total = ((total % 1440) + 1440) % 1440;
+    var outH = String(Math.floor(total / 60)).padStart(2, "0"), outM = String(total % 60).padStart(2, "0");
+    document.getElementById("tcOut").textContent = "🕐 " + document.getElementById("tcTime").value.trim() + " in " + from + " = " + outH + ":" + outM + " in " + to + ".";
+  } catch (e) { document.getElementById("tcOut").textContent = "Time-zone conversion is not supported in this browser."; }
+}
+["tcTime", "tcFrom", "tcTo"].forEach(function (id) {
+  document.getElementById(id).addEventListener("input", convertTime);
+  document.getElementById(id).addEventListener("change", convertTime);
+});
+convertTime();
+// Poll results
+function renderPr() {
+  var res = formatPollResults(document.getElementById("prIn").value);
+  var err = document.getElementById("prErr");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  document.getElementById("prOut").textContent = res.text || "—";
+}
+document.getElementById("prIn").addEventListener("input", renderPr);
+document.getElementById("prCopy").addEventListener("click", function () {
+  var v = document.getElementById("prOut").textContent; if (v && v !== "—") navigator.clipboard.writeText(v).catch(function () {});
+});
+// Goal
+function renderGoal() {
+  var res = goalProgress(document.getElementById("goCur").value, document.getElementById("goGoal").value);
+  if (res.error) { document.getElementById("goOut").textContent = res.error; return; }
+  document.getElementById("goOut").textContent = "🎯 " + res.pct + "% of the way there — " + res.remaining + " more to reach the goal.";
+  document.getElementById("goMeter").querySelector("div").style.width = res.pct + "%";
+}
+["goCur", "goGoal"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderGoal); });
+renderGoal(); renderPr();
+</script>
+</body>
+</html>
