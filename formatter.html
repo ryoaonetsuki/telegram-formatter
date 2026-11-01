@@ -194,6 +194,14 @@ document.getElementById("loadSample").addEventListener("click", function () {
   render(); setStatus("Sample loaded — press Copy formatted and paste it into Telegram to see it work.");
 });
 document.getElementById("clearAll").addEventListener("click", function () { editor.innerHTML = ""; render(); setStatus("Cleared."); });
+// Draft import from AI Post Writer (localStorage, same browser only)
+try {
+  if (window.location.hash === "#imported") {
+    var draft = localStorage.getItem("tgtool-draft");
+    if (draft) { editor.innerText = draft; localStorage.removeItem("tgtool-draft"); }
+  }
+} catch (e) {}
+
 render();
 </script>
 </body>
