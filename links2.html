@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Tools — TG Toolkit</title>
+<meta name="description" content="Telegram link tools: share links, bot deep links, link cleaner, link extractor, mention extractor, QR codes and UTM builder.">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/qrcode.js"></script>
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html" class="active">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🔗 Links</span>
+  <h1>Link <span class="grad">tools</span></h1>
+  <p class="sub">Share links, bot deep links, cleaning, extraction, QR codes and UTM tags — all validated in your browser. (For basic profile/channel/post links, see the <a href="links.html">Link Builder</a>.)</p>
+
+  <section class="card tool-section" id="share">
+    <h2>📤 Share Link Generator</h2>
+    <p class="desc">Build a t.me/share/url link that opens Telegram's share sheet with your link and text.</p>
+    <label for="shUrl">Link to share</label>
+    <input id="shUrl" type="url" placeholder="https://example.com/article" inputmode="url">
+    <label for="shText">Share text (optional)</label>
+    <input id="shText" type="text" placeholder="Check this out!">
+    <pre class="out" id="shOut">—</pre>
+    <p id="shErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn secondary" id="shCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="deeplink">
+    <h2>🤖 Deep Link Builder</h2>
+    <p class="desc">Build bot deep links: t.me/yourbot?start=payload (also startgroup for adding to groups). Payloads are validated to Telegram's allowed characters.</p>
+    <label for="dlBot">Bot username (without @)</label>
+    <input id="dlBot" type="text" placeholder="e.g. mycoolbot">
+    <label for="dlPayload">Start payload (letters, numbers, _ and - only)</label>
+    <input id="dlPayload" type="text" placeholder="e.g. welcome123">
+    <label for="dlMode">Link type</label>
+    <select id="dlMode"><option value="start">start (open bot)</option><option value="startgroup">startgroup (add to group)</option></select>
+    <pre class="out" id="dlOut">—</pre>
+    <p id="dlErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn secondary" id="dlCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="cleaner">
+    <h2>🧹 Link Cleaner</h2>
+    <p class="desc">Strip tracking parameters (utm_*, fbclid, gclid, etc.) from a URL, keeping the real address.</p>
+    <label for="clIn">Messy URL</label>
+    <input id="clIn" type="url" placeholder="https://example.com/page?utm_source=telegram&fbclid=abc&id=5" inputmode="url">
+    <pre class="out" id="clOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="clCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="extractor">
+    <h2>🔍 Link Extractor</h2>
+    <p class="desc">Pull every unique URL out of pasted text.</p>
+    <textarea id="exIn" placeholder="Paste text containing links…" style="min-height:110px;"></textarea>
+    <pre class="out" id="exOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="exCopy">Copy all</button></div>
+  </section>
+
+  <section class="card tool-section" id="mentions">
+    <h2>👤 Mention Extractor</h2>
+    <p class="desc">Pull every unique @username out of pasted text.</p>
+    <textarea id="meIn" placeholder="Paste text with @usernames…" style="min-height:110px;"></textarea>
+    <pre class="out" id="meOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="meCopy">Copy all</button></div>
+  </section>
+
+  <section class="card tool-section" id="qr">
+    <h2>🔳 QR Code Generator</h2>
+    <p class="desc">Make a QR code for any t.me link (or any text) and download it as a PNG. Generated locally with the qrcode-generator library (MIT) — nothing is uploaded.</p>
+    <label for="qrText">Text or link</label>
+    <input id="qrText" type="text" placeholder="e.g. https://t.me/telegram">
+    <label for="qrSize">Size</label>
+    <select id="qrSize"><option value="256">256 px</option><option value="512" selected>512 px</option><option value="1024">1024 px</option></select>
+    <div class="btn-row"><button class="btn primary" id="qrGen">Generate QR</button><button class="btn secondary" id="qrDl" style="display:none;">Download PNG</button></div>
+    <div style="margin-top:14px;"><canvas id="qrCanvas" width="512" height="512" style="width:100%;max-width:320px;height:auto;background:#fff;border-radius:12px;"></canvas></div>
+    <p class="meta">QR library: qrcode-generator by Kazuhiko Arase, MIT license, vendored locally in assets/qrcode.js.</p>
+  </section>
+
+  <section class="card tool-section" id="utm">
+    <h2>🏷️ UTM Builder</h2>
+    <p class="desc">Add utm_source, utm_medium and utm_campaign to a URL for tracking where traffic came from.</p>
+    <label for="utBase">Base URL</label>
+    <input id="utBase" type="url" placeholder="https://example.com/page" inputmode="url">
+    <label for="utSource">utm_source</label>
+    <input id="utSource" type="text" placeholder="e.g. telegram">
+    <label for="utMedium">utm_medium</label>
+    <input id="utMedium" type="text" placeholder="e.g. channel">
+    <label for="utCamp">utm_campaign</label>
+    <input id="utCamp" type="text" placeholder="e.g. launch">
+    <pre class="out" id="utOut">—</pre>
+    <p id="utErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn secondary" id="utCopy">Copy</button></div>
+  </section>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function buildShareLink(url, text) {
+  var u = String(url || "").trim();
+  if (!/^https?:\/\//i.test(u)) return { error: "Share link must start with http:// or https://", link: "" };
+  var out = "https://t.me/share/url?url=" + encodeURIComponent(u);
+  var t = String(text || "").trim();
+  if (t) out += "&text=" + encodeURIComponent(t);
+  return { error: null, link: out };
+}
+function cleanBotHandle(raw) { return String(raw || "").trim().replace(/^@+/, "").replace(/\s+/g, ""); }
+function buildDeepLink(bot, payload, mode) {
+  var b = cleanBotHandle(bot);
+  var p = String(payload || "").trim();
+  if (!b) return { error: "Enter a bot username.", link: "" };
+  if (!/^[A-Za-z0-9_-]{1,64}$/.test(p)) return { error: "Payload must be 1–64 characters: letters, numbers, _ or - only.", link: "" };
+  return { error: null, link: "https://t.me/" + b + "?" + (mode === "startgroup" ? "startgroup" : "start") + "=" + p };
+}
+var TRACKING_PARAMS = ["fbclid", "gclid", "gclsrc", "dclid", "msclkid", "mc_cid", "mc_eid", "igshid", "ttclid"];
+function cleanUrl(raw) {
+  var u = String(raw || "").trim();
+  if (!/^https?:\/\//i.test(u)) return { cleaned: "", removed: 0 };
+  try {
+    var url = new URL(u);
+    var removed = 0;
+    Array.from(url.searchParams.keys()).forEach(function (k) {
+      if (k.indexOf("utm_") === 0 || TRACKING_PARAMS.indexOf(k) !== -1) { url.searchParams.delete(k); removed++; }
+    });
+    return { cleaned: url.toString(), removed: removed };
+  } catch (e) { return { cleaned: "", removed: 0 }; }
+}
+function extractUrls(text) {
+  var found = (String(text || "").match(/https?:\/\/[^\s<>"')\]]+/g) || []).map(function (u) { return u.replace(/[.,;:!?]+$/, ""); });
+  var seen = {}, out = [];
+  found.forEach(function (u) { if (!seen[u]) { seen[u] = true; out.push(u); } });
+  return out;
+}
+function extractMentions(text) {
+  var found = (String(text || "").match(/@[A-Za-z0-9_]{5,32}/g) || []);
+  var seen = {}, out = [];
+  found.forEach(function (m) { var k = m.toLowerCase(); if (!seen[k]) { seen[k] = true; out.push(m); } });
+  return out;
+}
+function buildUtm(base, source, medium, campaign) {
+  var b = String(base || "").trim();
+  if (!/^https?:\/\//i.test(b)) return { error: "Base URL must start with http:// or https://", link: "" };
+  try {
+    var url = new URL(b);
+    if (source) url.searchParams.set("utm_source", source.trim());
+    if (medium) url.searchParams.set("utm_medium", medium.trim());
+    if (campaign) url.searchParams.set("utm_campaign", campaign.trim());
+    return { error: null, link: url.toString() };
+  } catch (e) { return { error: "Could not parse that URL.", link: "" }; }
+}
+/* LOGIC-END */
+function showOut(id, text) { document.getElementById(id).textContent = text || "—"; }
+function copyOut(id) { var v = document.getElementById(id).textContent; if (v && v !== "—") navigator.clipboard.writeText(v).catch(function () {}); }
+function renderShare() {
+  var r = buildShareLink(document.getElementById("shUrl").value, document.getElementById("shText").value);
+  var err = document.getElementById("shErr");
+  if (r.error && document.getElementById("shUrl").value.trim()) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  showOut("shOut", r.link);
+}
+["shUrl", "shText"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderShare); });
+document.getElementById("shCopy").addEventListener("click", function () { copyOut("shOut"); });
+function renderDl() {
+  var r = buildDeepLink(document.getElementById("dlBot").value, document.getElementById("dlPayload").value, document.getElementById("dlMode").value);
+  var err = document.getElementById("dlErr");
+  if (r.error && (document.getElementById("dlBot").value.trim() || document.getElementById("dlPayload").value.trim())) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  showOut("dlOut", r.link);
+}
+["dlBot", "dlPayload", "dlMode"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderDl); document.getElementById(id).addEventListener("change", renderDl); });
+document.getElementById("dlCopy").addEventListener("click", function () { copyOut("dlOut"); });
+document.getElementById("clIn").addEventListener("input", function () {
+  var r = cleanUrl(document.getElementById("clIn").value);
+  showOut("clOut", r.cleaned ? r.cleaned + (r.removed ? "\n(" + r.removed + " tracking parameter(s) removed)" : "\n(no tracking parameters found)") : "");
+});
+document.getElementById("clCopy").addEventListener("click", function () {
+  var v = document.getElementById("clOut").textContent.split("\n")[0]; if (v && v !== "—") navigator.clipboard.writeText(v).catch(function () {});
+});
+document.getElementById("exIn").addEventListener("input", function () {
+  var urls = extractUrls(document.getElementById("exIn").value);
+  showOut("exOut", urls.length ? urls.join("\n") : "");
+});
+document.getElementById("exCopy").addEventListener("click", function () { copyOut("exOut"); });
+document.getElementById("meIn").addEventListener("input", function () {
+  var ms = extractMentions(document.getElementById("meIn").value);
+  showOut("meOut", ms.length ? ms.join(" ") : "");
+});
+document.getElementById("meCopy").addEventListener("click", function () { copyOut("meOut"); });
+// QR
+document.getElementById("qrGen").addEventListener("click", function () {
+  var text = document.getElementById("qrText").value.trim();
+  if (!text) return;
+  var size = parseInt(document.getElementById("qrSize").value, 10);
+  var canvas = document.getElementById("qrCanvas");
+  canvas.width = size; canvas.height = size;
+  try {
+    var qr = qrcode(0, "M");
+    qr.addData(text);
+    qr.make();
+    var ctx = canvas.getContext("2d");
+    var count = qr.getModuleCount();
+    var cell = size / count;
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = "#000000";
+    for (var r = 0; r < count; r++) for (var c = 0; c < count; c++) if (qr.isDark(r, c)) ctx.fillRect(Math.round(c * cell), Math.round(r * cell), Math.ceil(cell), Math.ceil(cell));
+    document.getElementById("qrDl").style.display = "";
+  } catch (e) {
+    ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, size, size);
+    ctx.fillStyle = "#ff0000"; ctx.font = "20px sans-serif";
+    ctx.fillText("QR failed: text too long for auto size.", 10, 40);
+  }
+});
+document.getElementById("qrDl").addEventListener("click", function () {
+  var a = document.createElement("a");
+  a.href = document.getElementById("qrCanvas").toDataURL("image/png");
+  a.download = "qr-code.png"; a.click();
+});
+function renderUtm() {
+  var r = buildUtm(document.getElementById("utBase").value, document.getElementById("utSource").value, document.getElementById("utMedium").value, document.getElementById("utCamp").value);
+  var err = document.getElementById("utErr");
+  if (r.error && document.getElementById("utBase").value.trim()) { err.style.display = "block"; err.textContent = "⚠️ " + r.error; } else err.style.display = "none";
+  showOut("utOut", r.link);
+}
+["utBase", "utSource", "utMedium", "utCamp"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderUtm); });
+document.getElementById("utCopy").addEventListener("click", function () { copyOut("utOut"); });
+renderShare(); renderDl(); renderUtm();
+</script>
+</body>
+</html>
