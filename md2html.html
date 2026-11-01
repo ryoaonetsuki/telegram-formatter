@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markdown → Telegram HTML — TG Toolkit</title>
+<meta name="description" content="Convert markdown into Telegram Bot API HTML (b, i, a, code, pre, blockquote) for bot developers, with a copy button.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html" class="active">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🧩 For bot developers</span>
+  <h1>Markdown → Telegram <span class="grad">HTML</span></h1>
+  <p class="sub">Convert markdown into the HTML Telegram's Bot API accepts: <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;a href&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code>, <code>&lt;blockquote&gt;</code>. Lists become bullet lines, since Bot API HTML has no list tags.</p>
+  <div class="grid2" style="margin-top:20px;">
+    <section class="card">
+      <p class="panel-label">Markdown input</p>
+      <textarea id="mdInput" placeholder="**Bold title**&#10;&#10;> A quote&#10;&#10;- Item one&#10;- Item two&#10;&#10;See [Telegram](https://telegram.org) and `code` here." style="min-height:300px;"></textarea>
+      <div class="btn-row">
+        <button class="btn primary" id="copyHtml">📋 Copy HTML</button>
+        <button class="btn secondary" id="mdSample">Load sample</button>
+        <button class="btn secondary" id="mdClear">Clear</button>
+      </div>
+      <p class="status" id="mdStatus"></p>
+    </section>
+    <section class="card">
+      <p class="panel-label">Telegram HTML output</p>
+      <pre class="out" id="mdOut">Your converted HTML will appear here…</pre>
+      <p style="color:var(--muted);font-size:14px;line-height:1.7;">Send this with <code>parse_mode=HTML</code>. Only the tags above are used, so the Bot API accepts it.</p>
+    </section>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function esc(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function mdInline(t) {
+  var pres = [];
+  t = esc(t);
+  t = t.replace(/`([^`]+)`/g, function (m, c) { pres.push(c); return "\u0000" + (pres.length - 1) + "\u0000"; });
+  t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+  t = t.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+  t = t.replace(/__([^_]+)__/g, "<i>$1</i>");
+  t = t.replace(/(^|[^*])\*([^*]+)\*/g, "$1<i>$2</i>");
+  t = t.replace(/\u0000(\d+)\u0000/g, function (m, i) { return "<code>" + pres[+i] + "</code>"; });
+  return t;
+}
+function mdToTelegramHtml(src) {
+  var text = String(src || "").replace(/\r\n/g, "\n");
+  var pres = [];
+  text = text.replace(/```([\s\S]*?)```/g, function (m, c) { pres.push(esc(c)); return "\u0001" + (pres.length - 1) + "\u0001"; });
+  var lines = text.split("\n");
+  var out = [], i = 0;
+  while (i < lines.length) {
+    var line = lines[i];
+    if (/^\s*$/.test(line)) { i++; continue; }
+    var m;
+    if ((m = /^\u0001(\d+)\u0001\s*$/.exec(line))) { out.push("<pre>" + pres[+m[1]] + "</pre>"); i++; }
+    else if (/^#\s+/.test(line)) { out.push("<b>" + mdInline(line.replace(/^#\s+/, "")) + "</b>"); i++; }
+    else if (/^>\s?/.test(line)) {
+      var q = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) { q.push(mdInline(lines[i].replace(/^>\s?/, ""))); i++; }
+      out.push("<blockquote>" + q.join("<br>") + "</blockquote>");
+    } else if (/^-\s+/.test(line)) {
+      var items = [];
+      while (i < lines.length && /^-\s+/.test(lines[i])) { items.push("• " + mdInline(lines[i].replace(/^-\s+/, ""))); i++; }
+      out.push(items.join("<br>"));
+    } else {
+      var buf = [];
+      while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^#\s+/.test(lines[i]) && !/^>\s?/.test(lines[i]) && !/^-\s+/.test(lines[i]) && !/^\u0001\d+\u0001\s*$/.test(lines[i])) { buf.push(mdInline(lines[i])); i++; }
+      out.push(buf.join("<br>"));
+    }
+  }
+  return out.join("<br>");
+}
+/* LOGIC-END */
+var input = document.getElementById("mdInput");
+var outEl = document.getElementById("mdOut");
+var status = document.getElementById("mdStatus");
+function render() { var html = mdToTelegramHtml(input.value); outEl.textContent = html || "Your converted HTML will appear here…"; }
+input.addEventListener("input", render);
+document.getElementById("copyHtml").addEventListener("click", async function () {
+  var html = mdToTelegramHtml(input.value);
+  if (!html) { status.textContent = "Nothing to copy yet."; return; }
+  try { await navigator.clipboard.writeText(html); status.textContent = "✅ HTML copied — send it with parse_mode=HTML."; }
+  catch (e) { status.textContent = "Copy failed in this browser."; }
+});
+document.getElementById("mdSample").addEventListener("click", function () {
+  input.value = "**NewPipe — YouTube without the tracking**\n\n> A free, open-source YouTube client for Android.\n\n- Watch and download videos\n- Background play\n\nGet it here: [NewPipe on GitHub](https://github.com/TeamNewPipe/NewPipe) and `no account needed`.";
+  render();
+});
+document.getElementById("mdClear").addEventListener("click", function () { input.value = ""; render(); });
+render();
+</script>
+</body>
+</html>
