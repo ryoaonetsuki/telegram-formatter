@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post Preview — TG Toolkit</title>
+<meta name="description" content="Type a Telegram post and see it rendered as a channel post in phone width and desktop width.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html" class="active">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">📱 See it first</span>
+  <h1>Post <span class="grad">Preview</span></h1>
+  <p class="sub">Type your post with simple markup — <code>**bold**</code>, <code>*italic*</code>, <code>`code`</code>, <code>&gt; quote</code>, <code>[text](url)</code>, <code>- list</code>, <code># heading</code> — and see it as a Telegram channel post on phone and desktop widths before you publish.</p>
+  <div class="card" style="margin-top:20px;">
+    <label for="prevInput">Your post</label>
+    <textarea id="prevInput" placeholder="**Bold title**&#10;&#10;> A quote line&#10;&#10;- Point one&#10;- Point two&#10;&#10;Read more: [Telegram](https://telegram.org)" style="min-height:180px;"></textarea>
+    <div class="btn-row">
+      <button class="btn secondary" id="prevSample">Load sample</button>
+      <button class="btn secondary" id="prevClear">Clear</button>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:20px;">
+    <section>
+      <p class="panel-label">📱 Phone width (390px)</p>
+      <div class="phone-frame"><div class="bubble" id="prevPhone"><span class="empty-hint">Preview will appear here…</span></div></div>
+    </section>
+    <section>
+      <p class="panel-label">🖥️ Desktop width</p>
+      <div class="desktop-frame"><div class="bubble" id="prevDesktop"><span class="empty-hint">Preview will appear here…</span></div></div>
+    </section>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function escP(s) { return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function inlineP(t) {
+  var codes = [];
+  t = escP(t);
+  t = t.replace(/`([^`]+)`/g, function (m, c) { codes.push(c); return "\u0000" + (codes.length - 1) + "\u0000"; });
+  t = t.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+  t = t.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>");
+  t = t.replace(/__([^_]+)__/g, "<i>$1</i>");
+  t = t.replace(/(^|[^*])\*([^*]+)\*/g, "$1<i>$2</i>");
+  t = t.replace(/\u0000(\d+)\u0000/g, function (m, i) { return "<code>" + codes[+i] + "</code>"; });
+  return t;
+}
+function formatPost(src) {
+  var lines = String(src || "").replace(/\r\n/g, "\n").split("\n");
+  var out = [], i = 0;
+  while (i < lines.length) {
+    var line = lines[i];
+    if (/^\s*$/.test(line)) { i++; continue; }
+    var m;
+    if ((m = /^#\s+(.+)$/.exec(line))) { out.push('<div style="font-weight:700;font-size:17px;margin:2px 0 6px;">' + inlineP(m[1]) + "</div>"); i++; }
+    else if (/^>\s?/.test(line)) {
+      var q = [];
+      while (i < lines.length && /^>\s?/.test(lines[i])) { q.push(inlineP(lines[i].replace(/^>\s?/, ""))); i++; }
+      out.push('<div class="quote" style="border-left:3px solid #2aabee;padding-left:11px;color:#c9d4e3;margin:8px 0;">' + q.join("<br>") + "</div>");
+    } else if (/^-\s+/.test(line)) {
+      var items = [];
+      while (i < lines.length && /^-\s+/.test(lines[i])) { items.push("<li>" + inlineP(lines[i].replace(/^-\s+/, "")) + "</li>"); i++; }
+      out.push("<ul>" + items.join("") + "</ul>");
+    } else {
+      var buf = [];
+      while (i < lines.length && !/^\s*$/.test(lines[i]) && !/^#\s+/.test(lines[i]) && !/^>\s?/.test(lines[i]) && !/^-\s+/.test(lines[i])) { buf.push(inlineP(lines[i])); i++; }
+      out.push('<div style="margin:0 0 8px;">' + buf.join("<br>") + "</div>");
+    }
+  }
+  return out.join("");
+}
+/* LOGIC-END */
+var input = document.getElementById("prevInput");
+var phone = document.getElementById("prevPhone");
+var desktop = document.getElementById("prevDesktop");
+function render() {
+  var html = formatPost(input.value);
+  var empty = '<span class="empty-hint">Preview will appear here…</span>';
+  phone.innerHTML = html || empty;
+  desktop.innerHTML = html || empty;
+}
+input.addEventListener("input", render);
+document.getElementById("prevSample").addEventListener("click", function () {
+  input.value = "**NewPipe — YouTube without the tracking**\n\n> A free, open-source YouTube client for Android. No Google account, no ads, no tracking.\n\n- Watch and download videos\n- Background play and picture-in-picture\n\nGet it here: [NewPipe on GitHub](https://github.com/TeamNewPipe/NewPipe)";
+  render();
+});
+document.getElementById("prevClear").addEventListener("click", function () { input.value = ""; render(); });
+render();
+</script>
+</body>
+</html>
