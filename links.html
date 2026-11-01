@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Link Builder — TG Toolkit</title>
+<meta name="description" content="Build correct t.me links for Telegram profiles, channels, posts and share-text links — validated, ready to copy.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html" class="active">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🔗 t.me links</span>
+  <h1>Link <span class="grad">Builder</span></h1>
+  <p class="sub">Fill in what you know — get correct, copyable t.me links. Usernames are cleaned automatically (the @ and spaces are stripped).</p>
+  <div class="card" style="margin-top:20px;">
+    <label for="inUser">Username or channel name (without @ is fine)</label>
+    <input id="inUser" type="text" placeholder="e.g. telegram or durov" autocomplete="off">
+    <label for="inPost">Post number (optional — for a link to a specific post)</label>
+    <input id="inPost" type="text" placeholder="e.g. 123 — only digits" inputmode="numeric" autocomplete="off">
+    <label for="inShareUrl">Link to share (optional — for a share-text link)</label>
+    <input id="inShareUrl" type="url" placeholder="e.g. https://example.com/article" inputmode="url" autocomplete="off">
+    <label for="inShareText">Share text (optional)</label>
+    <input id="inShareText" type="text" placeholder="e.g. Check this out!" autocomplete="off">
+    <p id="linkError" class="warn" style="display:none;"></p>
+    <div id="linkOut"></div>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function cleanHandle(raw) {
+  return String(raw || "").trim().replace(/^@+/, "").replace(/\s+/g, "");
+}
+function validHandle(h) { return /^[A-Za-z0-9_]{5,32}$/.test(h); }
+function buildLinks(input) {
+  var user = cleanHandle(input.user);
+  var post = String(input.post || "").trim();
+  var out = { error: null, links: [] };
+  if (user && !validHandle(user)) out.error = "Username looks invalid — Telegram usernames use letters, numbers and underscores (5–32 characters).";
+  if (post && !/^\d+$/.test(post)) out.error = "Post number must contain digits only.";
+  if (!user && !input.shareUrl) out.error = out.error || "Enter a username, or a link to share.";
+  if (user) {
+    out.links.push(["Profile / channel link", "https://t.me/" + user]);
+    if (post && /^\d+$/.test(post)) out.links.push(["Link to post", "https://t.me/" + user + "/" + post]);
+  }
+  var shareUrl = String(input.shareUrl || "").trim();
+  if (shareUrl) {
+    if (!/^https?:\/\//i.test(shareUrl)) out.error = "Share link must start with http:// or https://";
+    else {
+      var u = "https://t.me/share/url?url=" + encodeURIComponent(shareUrl);
+      var st = String(input.shareText || "").trim();
+      if (st) u += "&text=" + encodeURIComponent(st);
+      out.links.push(["Share link (opens Telegram share sheet)", u]);
+    }
+  }
+  return out;
+}
+/* LOGIC-END */
+var ids = ["inUser", "inPost", "inShareUrl", "inShareText"];
+function render() {
+  var res = buildLinks({ user: document.getElementById("inUser").value, post: document.getElementById("inPost").value, shareUrl: document.getElementById("inShareUrl").value, shareText: document.getElementById("inShareText").value });
+  var err = document.getElementById("linkError");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  var box = document.getElementById("linkOut");
+  box.innerHTML = "";
+  res.links.forEach(function (pair) {
+    var row = document.createElement("div");
+    row.className = "font-row";
+    var left = document.createElement("div");
+    var fn = document.createElement("div"); fn.className = "fname"; fn.textContent = pair[0];
+    var ft = document.createElement("div"); ft.className = "ftext"; ft.style.fontSize = "15px";
+    var a = document.createElement("a"); a.href = pair[1]; a.target = "_blank"; a.rel = "noopener"; a.textContent = pair[1];
+    ft.appendChild(a);
+    left.appendChild(fn); left.appendChild(ft);
+    var btn = document.createElement("button");
+    btn.className = "small-btn"; btn.textContent = "Copy";
+    btn.addEventListener("click", async function () {
+      try { await navigator.clipboard.writeText(pair[1]); err.style.display = "none"; } catch (e) {}
+    });
+    row.appendChild(left); row.appendChild(btn);
+    box.appendChild(row);
+  });
+  if (!res.links.length) box.innerHTML = '<p style="color:var(--muted);">Your links will appear here.</p>';
+}
+ids.forEach(function (id) { document.getElementById(id).addEventListener("input", render); });
+render();
+</script>
+</body>
+</html>
