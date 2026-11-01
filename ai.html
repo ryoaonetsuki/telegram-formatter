@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free AI Chat — TG Toolkit</title>
+<meta name="description" content="Free AI chat with no API key, powered by the Pollinations free API. Also try the AI Post Writer for Telegram drafts.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html" class="active">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🤖 Free AI</span>
+  <h1>Free AI <span class="grad">Chat</span></h1>
+  <p class="sub">Ask anything — no API key, no signup, no cost. Free AI, powered by Pollinations free API — a shared free service, so it can be slow or busy at times. If it fails, you will see the error and a retry button; replies are never faked. Your messages are sent to Pollinations to generate replies (that is how the free service works) — do not paste passwords or private information.</p>
+  <div class="card" style="margin-top:20px;">
+    <div class="chatlog" id="chatLog">
+      <p class="msg ai"><b>AI:</b> Hi! I am the free AI in TG Toolkit. Ask me anything — or try the <a href="write.html#ai-writer">AI Post Writer</a> for Telegram drafts.</p>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:12px;">
+      <input id="chatInput" type="text" placeholder="Ask something…" autocomplete="off" style="flex:1;min-width:0;">
+      <button class="btn primary" id="chatSend" style="flex:none;">Send</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn secondary" id="chatRetry" style="display:none;">Retry last message</button>
+      <button class="btn secondary" id="chatClear">Clear chat</button>
+    </div>
+    <p class="status" id="chatStatus"></p>
+  </div>
+  <div class="card tool-section">
+    <h2>✍️ AI Post Writer</h2>
+    <p class="desc">The AI Post Writer lives on the Write page — same free AI backend, tuned for Telegram posts, with a one-tap send into the Post Formatter.</p>
+    <div class="btn-row"><a href="write.html#ai-writer"><button class="btn primary" type="button">Open AI Post Writer →</button></a></div>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — AI replies come from the Pollinations free API (not our own model, not unlimited). Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+var log = document.getElementById("chatLog");
+var input = document.getElementById("chatInput");
+var status = document.getElementById("chatStatus");
+var lastPrompt = "";
+function addMsg(who, text, isErr) {
+  var p = document.createElement("p");
+  p.className = "msg" + (who === "AI" ? " ai" : "") + (isErr ? " err" : "");
+  var b = document.createElement("b"); b.textContent = who + ": ";
+  p.appendChild(b);
+  p.appendChild(document.createTextNode(text));
+  log.appendChild(p);
+  log.scrollTop = log.scrollHeight;
+}
+async function sendChat() {
+  var prompt = input.value.trim();
+  if (!prompt) return;
+  lastPrompt = prompt;
+  input.value = "";
+  addMsg("You", prompt);
+  var thinking = document.createElement("p");
+  thinking.className = "msg ai";
+  thinking.textContent = "AI: thinking… (free shared service, may take a few seconds)";
+  log.appendChild(thinking);
+  log.scrollTop = log.scrollHeight;
+  document.getElementById("chatRetry").style.display = "none";
+  status.textContent = "";
+  try {
+    var res = await fetch("https://text.pollinations.ai/" + encodeURIComponent(prompt), { headers: { Accept: "text/plain" } });
+    if (!res.ok) throw new Error("AI service returned " + res.status);
+    var text = (await res.text()).trim();
+    if (!text) throw new Error("AI service returned an empty reply");
+    thinking.remove();
+    addMsg("AI", text);
+  } catch (e) {
+    thinking.remove();
+    addMsg("AI", "Sorry — the free AI service could not reply right now (" + e.message + "). It is a shared free service; please retry in a bit. No reply was faked.", true);
+    document.getElementById("chatRetry").style.display = "";
+  }
+}
+document.getElementById("chatSend").addEventListener("click", sendChat);
+input.addEventListener("keydown", function (e) { if (e.key === "Enter") sendChat(); });
+document.getElementById("chatRetry").addEventListener("click", function () {
+  if (!lastPrompt) return;
+  input.value = lastPrompt;
+  sendChat();
+});
+document.getElementById("chatClear").addEventListener("click", function () {
+  log.innerHTML = '<p class="msg ai"><b>AI:</b> Hi! I am the free AI in TG Toolkit. Ask me anything — or try the <a href="write.html#ai-writer">AI Post Writer</a> for Telegram drafts.</p>';
+  document.getElementById("chatRetry").style.display = "none";
+});
+</script>
+</body>
+</html>
