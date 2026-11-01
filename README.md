@@ -2,7 +2,7 @@
 
 A free suite of **51 Telegram tools**. No backend, no tracking, no sign-up — everything runs in your browser, and nothing you type ever leaves the page (except AI chats, which go to the free Pollinations API to generate replies).
 
-Live site: https://telegram-formatter.pages.dev
+Live site: https://ryoaonetsuki.github.io/telegram-formatter/ (GitHub Pages)
 
 ## Tools (51, all real, all client-side)
 
@@ -50,11 +50,15 @@ Telegram's message box does not render markdown pasted as plain text. Copying `*
 
 ## Design
 
-Built with the **solid-glass design system** (MIT, deeplethe/solid-glass) — thick panes of smoked glass, a line of light along the top edge, a hairline all round, a shadow underneath. Adapted here as a standalone dark theme in `assets/style.css` (the original ships as shadcn/ui colour variables). No solid-glass docs content, logos, or text are copied. The QR code library is qrcode-generator by Kazuhiko Arase (MIT), vendored locally in `assets/qrcode.js` with its license header intact.
+Custom premium glassmorphism system in `assets/style.css`: deep backdrop blur, layered translucent panes, gradient hairline borders and soft top reflections over rich dark gradients. App-shell layout — a sidebar on desktop (content pane beside it) and a bottom navigation bar on mobile, so the site feels like a desktop app on desktop and an Android app on phones.
+
+Icons are **Lucide** (MIT, https://lucide.dev) — SVGs vendored locally under `assets/icons/` and inlined at build time; no CDN hotlink, no emoji-as-icons. The logo is an original gradient glass tile with a Lucide send mark. The QR code library is qrcode-generator by Kazuhiko Arase (MIT), vendored locally in `assets/qrcode.js` with its license header intact.
+
+Design history: an earlier version of this site was styled with the solid-glass design system (MIT, deeplethe/solid-glass). That styling was replaced in the 2026-11-01 redesign; no solid-glass CSS ships anymore, and no solid-glass docs content, logos, or text were ever copied.
 
 ## Run it locally
 
-No build step, no server, no install. Open `index.html` in a browser — or serve the folder with any static host (Cloudflare Pages, GitHub Pages, Netlify).
+No build step, no server, no install. Open `index.html` in a browser — or serve the folder with any static host. Hosted on GitHub Pages (`.nojekyll` at the repo root so Pages serves files as-is).
 
 ## Privacy
 
