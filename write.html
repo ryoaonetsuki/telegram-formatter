@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Write Tools — TG Toolkit</title>
+<meta name="description" content="Writing tools for Telegram: AI post writer, word counter, quiz builder, caption ideas, bio generator and reading time.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html" class="active">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">✍️ Write</span>
+  <h1>Write <span class="grad">tools</span></h1>
+  <p class="sub">Draft, count and shape Telegram posts. The AI writer uses a free shared service (see the note) — everything else runs entirely in your browser.</p>
+
+  <section class="card tool-section" id="ai-writer">
+    <h2>🤖 AI Post Writer</h2>
+    <p class="desc">Describe a topic, pick a tone, and the free AI drafts a Telegram post. Then send it to the Post Formatter for bold, links and final polish. Free AI, powered by Pollinations free API — a shared free service, so it can be slow or busy at times. No API key, nothing stored.</p>
+    <label for="aiTopic">Topic</label>
+    <input id="aiTopic" type="text" placeholder="e.g. a free Android app that blocks ads">
+    <label for="aiTone">Tone</label>
+    <select id="aiTone"><option>Helpful and clear</option><option>Short and punchy</option><option>Friendly and fun</option><option>Professional</option></select>
+    <label for="aiLen">Length</label>
+    <select id="aiLen"><option value="short">Short (~60 words)</option><option value="medium">Medium (~120 words)</option><option value="long">Long (~200 words)</option></select>
+    <div class="btn-row"><button class="btn primary" id="aiWriteBtn">✨ Draft my post</button></div>
+    <pre class="out" id="aiWriteOut">Your AI draft will appear here…</pre>
+    <p id="aiWriteErr" class="warn" style="display:none;"></p>
+    <div class="btn-row">
+      <button class="btn secondary" id="aiWriteRetry" style="display:none;">Retry</button>
+      <button class="btn secondary" id="aiWriteCopy" style="display:none;">Copy draft</button>
+      <button class="btn secondary" id="aiWriteSend" style="display:none;">Send to Formatter →</button>
+    </div>
+  </section>
+
+  <section class="card tool-section" id="word-counter">
+    <h2>🔢 Word Counter</h2>
+    <p class="desc">Words, characters (with and without spaces), sentences and paragraphs — live as you type.</p>
+    <textarea id="wcInput" placeholder="Paste or type text…" style="min-height:140px;"></textarea>
+    <p class="meta" id="wcOut">0 words · 0 characters · 0 characters without spaces · 0 sentences · 0 paragraphs</p>
+  </section>
+
+  <section class="card tool-section" id="quiz-builder">
+    <h2>❓ Quiz Builder</h2>
+    <p class="desc">Write a quiz question with one correct answer and wrong answers, get clean copyable quiz text (correct answer marked for you, the creator).</p>
+    <label for="quizQ">Question</label>
+    <input id="quizQ" type="text" placeholder="e.g. Which planet is known as the Red Planet?">
+    <label for="quizRight">Correct answer</label>
+    <input id="quizRight" type="text" placeholder="e.g. Mars">
+    <label for="quizWrong">Wrong answers (one per line)</label>
+    <textarea id="quizWrong" placeholder="Venus&#10;Jupiter&#10;Saturn" style="min-height:110px;"></textarea>
+    <pre class="out" id="quizOut">Your quiz text will appear here…</pre>
+    <p id="quizErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn primary" id="quizCopy">📋 Copy quiz text</button></div>
+    <p class="status" id="quizStatus"></p>
+  </section>
+
+  <section class="card tool-section" id="caption-ideas">
+    <h2>💡 Caption Ideas</h2>
+    <p class="desc">Template-based caption ideas — no AI, instant. Pick a vibe, get five captions with your topic filled in.</p>
+    <label for="capTopic">Topic</label>
+    <input id="capTopic" type="text" placeholder="e.g. morning motivation">
+    <label for="capVibe">Vibe</label>
+    <select id="capVibe"><option>Motivational</option><option>Tech</option><option>Fun</option><option>Calm</option></select>
+    <div class="btn-row"><button class="btn primary" id="capGen">Generate ideas</button></div>
+    <pre class="out" id="capOut">Your caption ideas will appear here…</pre>
+    <div class="btn-row"><button class="btn secondary" id="capCopy">Copy all</button></div>
+    <p class="status" id="capStatus"></p>
+  </section>
+
+  <section class="card tool-section" id="bio-generator">
+    <h2>👤 Bio Generator</h2>
+    <p class="desc">Template-based bios from your name, role and interests — three styles to pick from.</p>
+    <label for="bioName">Name</label>
+    <input id="bioName" type="text" placeholder="e.g. Salman">
+    <label for="bioRole">Role</label>
+    <input id="bioRole" type="text" placeholder="e.g. Indie Developer">
+    <label for="bioInterest">Interests (comma separated)</label>
+    <input id="bioInterest" type="text" placeholder="e.g. apps, websites, Telegram bots">
+    <div class="btn-row"><button class="btn primary" id="bioGen">Generate bios</button></div>
+    <pre class="out" id="bioOut">Your bios will appear here…</pre>
+    <div class="btn-row"><button class="btn secondary" id="bioCopy">Copy all</button></div>
+    <p class="status" id="bioStatus"></p>
+  </section>
+
+  <section class="card tool-section" id="reading-time">
+    <h2>⏱️ Reading Time Estimator</h2>
+    <p class="desc">Paste text, pick a reading speed, get the estimated reading time.</p>
+    <textarea id="rtInput" placeholder="Paste text…" style="min-height:120px;"></textarea>
+    <label for="rtWpm">Reading speed</label>
+    <select id="rtWpm"><option value="150">Slow (150 wpm)</option><option value="200" selected>Average (200 wpm)</option><option value="250">Fast (250 wpm)</option></select>
+    <p class="meta" id="rtOut" style="font-size:17px;color:var(--text);">—</p>
+  </section>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking (AI writer uses the Pollinations free API). Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function countWords(text) {
+  var t = String(text || "");
+  var trimmed = t.trim();
+  return {
+    words: trimmed ? trimmed.split(/\s+/).length : 0,
+    chars: t.length,
+    charsNoSpaces: t.replace(/\s/g, "").length,
+    sentences: trimmed ? trimmed.split(/[.!?]+/).filter(function (s) { return s.trim(); }).length : 0,
+    paragraphs: trimmed ? trimmed.split(/\n\s*\n/).filter(function (s) { return s.trim(); }).length : 0
+  };
+}
+function readingMinutes(words, wpm) { return Math.max(1, Math.ceil(words / wpm)); }
+function buildQuiz(q, right, wrongs) {
+  var question = String(q || "").trim();
+  var r = String(right || "").trim();
+  var ws = (wrongs || []).map(function (w) { return String(w || "").trim(); }).filter(Boolean);
+  if (!question) return { error: "Write a quiz question first.", text: "" };
+  if (!r) return { error: "Write the correct answer.", text: "" };
+  if (!ws.length) return { error: "Add at least one wrong answer.", text: "" };
+  var lines = ["❓ " + question, ""];
+  lines.push("✅ " + r + "  (correct)");
+  ws.forEach(function (w, i) { lines.push("▫️ " + w); });
+  return { error: null, text: lines.join("\n") };
+}
+var CAPTION_TEMPLATES = {
+  Motivational: ["Your {t} starts with one small step. Take it today.", "Nobody is coming to save your {t} — and that is good news. You can.", "Small progress on {t} beats perfect plans. Keep going.", "If {t} feels hard, you are growing. Stay with it.", "One day, your {t} will thank you for not quitting."],
+  Tech: ["This {t} actually works — no signup, no catch.", "I tested this {t} so you don't have to. Verdict inside.", "A {t} worth your time. Save this post.", "Stop scrolling: this {t} is genuinely useful.", "New {t} drop — free, and it respects your privacy."],
+  Fun: ["Warning: this {t} may cause sudden smiling.", "POV: you finally found a {t} that delivers.", "This {t} understood the assignment.", "Tag someone who needs this {t} in their life.", "Plot twist: the {t} was good all along."],
+  Calm: ["Slow down. This {t} is a quiet kind of good.", "A gentle reminder about {t}, for a loud day.", "Breathe in, scroll less, enjoy this {t}.", "Small joys: a good {t} and a quiet moment.", "Let this {t} be the calm part of your feed."]
+};
+function captionIdeas(topic, vibe) {
+  var t = String(topic || "").trim() || "post";
+  var list = CAPTION_TEMPLATES[vibe] || CAPTION_TEMPLATES.Motivational;
+  return list.map(function (tpl, i) { return (i + 1) + ". " + tpl.replace(/\{t\}/g, t); });
+}
+function bioVariants(name, role, interests) {
+  var n = String(name || "").trim() || "Creator";
+  var r = String(role || "").trim() || "Creator";
+  var it = String(interests || "").trim() || "building things";
+  return [
+    "Short: " + n + " · " + r + " · " + it,
+    "Professional: " + n + " — " + r + " working on " + it + ".",
+    "Fun: " + n + " here. I make " + it + " and share the good ones. No spam, just useful stuff."
+  ];
+}
+function aiWriterPrompt(topic, tone, len) {
+  var words = len === "short" ? "about 60 words" : len === "long" ? "about 200 words" : "about 120 words";
+  return "Write a Telegram channel post, " + words + ", tone: " + tone + ", topic: " + topic + ". Plain text only, no markdown symbols, no hashtags unless they fit naturally. End with nothing else.";
+}
+/* LOGIC-END */
+function copyText(text, statusEl, okMsg) {
+  if (!text) { statusEl.textContent = "Nothing to copy yet."; return; }
+  navigator.clipboard.writeText(text).then(function () { statusEl.textContent = okMsg || "✅ Copied."; })
+    .catch(function () { statusEl.textContent = "Copy failed in this browser."; });
+}
+// Word counter
+var wcInput = document.getElementById("wcInput");
+wcInput.addEventListener("input", function () {
+  var s = countWords(wcInput.value);
+  document.getElementById("wcOut").textContent = s.words + " words · " + s.chars + " characters · " + s.charsNoSpaces + " characters without spaces · " + s.sentences + " sentences · " + s.paragraphs + " paragraphs";
+});
+// Reading time
+function renderRT() {
+  var s = countWords(document.getElementById("rtInput").value);
+  var wpm = parseInt(document.getElementById("rtWpm").value, 10);
+  document.getElementById("rtOut").textContent = s.words === 0 ? "—" : "⏱️ About " + readingMinutes(s.words, wpm) + " minute" + (readingMinutes(s.words, wpm) > 1 ? "s" : "") + " (" + s.words + " words at " + wpm + " wpm)";
+}
+document.getElementById("rtInput").addEventListener("input", renderRT);
+document.getElementById("rtWpm").addEventListener("change", renderRT);
+// Quiz
+function renderQuiz() {
+  var res = buildQuiz(document.getElementById("quizQ").value, document.getElementById("quizRight").value, document.getElementById("quizWrong").value.split("\n"));
+  var err = document.getElementById("quizErr");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  document.getElementById("quizOut").textContent = res.text || "Your quiz text will appear here…";
+  return res;
+}
+["quizQ", "quizRight", "quizWrong"].forEach(function (id) { document.getElementById(id).addEventListener("input", renderQuiz); });
+document.getElementById("quizCopy").addEventListener("click", function () {
+  var res = renderQuiz();
+  copyText(res.text, document.getElementById("quizStatus"), "✅ Quiz text copied.");
+});
+// Caption ideas
+function renderCaps() {
+  var ideas = captionIdeas(document.getElementById("capTopic").value, document.getElementById("capVibe").value);
+  document.getElementById("capOut").textContent = ideas.join("\n");
+  return ideas;
+}
+document.getElementById("capGen").addEventListener("click", renderCaps);
+document.getElementById("capCopy").addEventListener("click", function () {
+  copyText(renderCaps().join("\n"), document.getElementById("capStatus"), "✅ Caption ideas copied.");
+});
+// Bio
+function renderBio() {
+  var bios = bioVariants(document.getElementById("bioName").value, document.getElementById("bioRole").value, document.getElementById("bioInterest").value);
+  document.getElementById("bioOut").textContent = bios.join("\n\n");
+  return bios;
+}
+document.getElementById("bioGen").addEventListener("click", renderBio);
+document.getElementById("bioCopy").addEventListener("click", function () {
+  copyText(renderBio().join("\n\n"), document.getElementById("bioStatus"), "✅ Bios copied.");
+});
+// AI writer
+var aiOut = document.getElementById("aiWriteOut");
+var aiErr = document.getElementById("aiWriteErr");
+async function runAiWriter() {
+  var topic = document.getElementById("aiTopic").value.trim();
+  if (!topic) { aiErr.style.display = "block"; aiErr.textContent = "⚠️ Write a topic first."; return; }
+  aiErr.style.display = "none";
+  aiOut.textContent = "⏳ Drafting with the free AI… (shared service, may take a few seconds)";
+  document.getElementById("aiWriteRetry").style.display = "none";
+  var prompt = aiWriterPrompt(topic, document.getElementById("aiTone").value, document.getElementById("aiLen").value);
+  try {
+    var res = await fetch("https://text.pollinations.ai/" + encodeURIComponent(prompt), { headers: { Accept: "text/plain" } });
+    if (!res.ok) throw new Error("AI service returned " + res.status);
+    var text = (await res.text()).trim();
+    if (!text) throw new Error("AI service returned an empty reply");
+    aiOut.textContent = text;
+    document.getElementById("aiWriteCopy").style.display = "";
+    document.getElementById("aiWriteSend").style.display = "";
+    document.getElementById("aiWriteRetry").style.display = "none";
+  } catch (e) {
+    aiOut.textContent = "AI draft failed.";
+    aiErr.style.display = "block";
+    aiErr.textContent = "⚠️ The free AI service could not reply right now (" + e.message + "). It is a shared free service — please retry in a bit. Nothing was faked: no draft was invented.";
+    document.getElementById("aiWriteRetry").style.display = "";
+  }
+}
+document.getElementById("aiWriteBtn").addEventListener("click", runAiWriter);
+document.getElementById("aiWriteRetry").addEventListener("click", runAiWriter);
+document.getElementById("aiWriteCopy").addEventListener("click", function () {
+  navigator.clipboard.writeText(aiOut.textContent).catch(function () {});
+});
+document.getElementById("aiWriteSend").addEventListener("click", function () {
+  try { localStorage.setItem("tgtool-draft", aiOut.textContent); } catch (e) {}
+  window.location.href = "formatter.html#imported";
+});
+renderQuiz(); renderCaps(); renderBio(); renderRT();
+</script>
+</body>
+</html>
