@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Poll Text Builder — TG Toolkit</title>
+<meta name="description" content="Write a poll question, add options, get clean copyable poll text for posting on Telegram.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html" class="active">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">📊 Polls</span>
+  <h1>Poll Text <span class="grad">Builder</span></h1>
+  <p class="sub">Draft your poll as clean text — question plus options — then copy it and paste it where you post polls. (Telegram's native poll is created inside the app; this gives you the exact wording, ready to paste.)</p>
+  <div class="card" style="margin-top:20px;">
+    <label for="pollQ">Poll question</label>
+    <input id="pollQ" type="text" placeholder="e.g. Which app should we review next?" autocomplete="off">
+    <label>Options (at least 2)</label>
+    <div id="pollOpts"></div>
+    <div class="btn-row">
+      <button class="btn secondary" id="addOpt">+ Add option</button>
+      <button class="btn secondary" id="pollSample">Load sample</button>
+      <button class="btn secondary" id="pollClear">Clear</button>
+    </div>
+    <pre class="out" id="pollOut">Your poll text will appear here…</pre>
+    <p id="pollError" class="warn" style="display:none;"></p>
+    <div class="btn-row">
+      <button class="btn primary" id="copyPoll">📋 Copy poll text</button>
+    </div>
+    <p class="status" id="pollStatus"></p>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function buildPoll(question, options) {
+  var q = String(question || "").trim();
+  var opts = (options || []).map(function (o) { return String(o || "").trim(); }).filter(function (o) { return o; });
+  if (!q) return { error: "Write a poll question first.", text: "" };
+  if (opts.length < 2) return { error: "Add at least 2 non-empty options.", text: "" };
+  if (opts.length > 10) return { error: "Telegram polls allow at most 10 options — remove some.", text: "" };
+  var lines = ["📊 " + q, ""];
+  opts.forEach(function (o, i) { lines.push((i + 1) + ". " + o); });
+  return { error: null, text: lines.join("\n") };
+}
+/* LOGIC-END */
+var qEl = document.getElementById("pollQ");
+var optsEl = document.getElementById("pollOpts");
+var outEl = document.getElementById("pollOut");
+var errEl = document.getElementById("pollError");
+var status = document.getElementById("pollStatus");
+function optValues() {
+  return Array.from(optsEl.querySelectorAll("input")).map(function (i) { return i.value; });
+}
+function addOpt(value) {
+  var row = document.createElement("div");
+  row.className = "opt-row";
+  var inp = document.createElement("input");
+  inp.type = "text"; inp.placeholder = "Option " + (optsEl.children.length + 1); inp.value = value || "";
+  inp.addEventListener("input", render);
+  var del = document.createElement("button");
+  del.className = "small-btn"; del.textContent = "✕";
+  del.title = "Remove option";
+  del.addEventListener("click", function () { row.remove(); renumber(); render(); });
+  row.appendChild(inp); row.appendChild(del);
+  optsEl.appendChild(row);
+}
+function renumber() {
+  Array.from(optsEl.querySelectorAll("input")).forEach(function (inp, i) { inp.placeholder = "Option " + (i + 1); });
+}
+function render() {
+  var res = buildPoll(qEl.value, optValues());
+  if (res.error) { errEl.style.display = "block"; errEl.textContent = "⚠️ " + res.error; }
+  else errEl.style.display = "none";
+  outEl.textContent = res.text || "Your poll text will appear here…";
+}
+qEl.addEventListener("input", render);
+document.getElementById("addOpt").addEventListener("click", function () { addOpt(""); render(); });
+document.getElementById("pollSample").addEventListener("click", function () {
+  qEl.value = "Which app should we review next?";
+  optsEl.innerHTML = "";
+  ["NewPipe", "Seal", "SmartTube", "FUTO Keyboard"].forEach(addOpt);
+  render();
+});
+document.getElementById("pollClear").addEventListener("click", function () {
+  qEl.value = ""; optsEl.innerHTML = ""; addOpt(""); addOpt(""); render();
+});
+document.getElementById("copyPoll").addEventListener("click", async function () {
+  var res = buildPoll(qEl.value, optValues());
+  if (res.error) { status.textContent = "Fix the poll first: " + res.error; return; }
+  try { await navigator.clipboard.writeText(res.text); status.textContent = "✅ Poll text copied."; }
+  catch (e) { status.textContent = "Copy failed in this browser."; }
+});
+addOpt(""); addOpt(""); render();
+</script>
+</body>
+</html>
