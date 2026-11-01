@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hashtag Helper — TG Toolkit</title>
+<meta name="description" content="Paste messy tags or text and get a cleaned, deduplicated hashtag list ready to copy for Telegram.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html" class="active">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">#️⃣ Clean tags</span>
+  <h1>Hashtag <span class="grad">Helper</span></h1>
+  <p class="sub">Paste tags or a whole caption — get a cleaned, deduplicated hashtag list. Duplicates are removed, stray symbols are stripped, and every tag gets its #.</p>
+  <div class="card" style="margin-top:20px;">
+    <label for="tagInput">Tags or text</label>
+    <textarea id="tagInput" placeholder="e.g. #Tech #android, tech, Free Apps, #tech…" style="min-height:140px;"></textarea>
+    <div class="btn-row">
+      <button class="btn secondary" id="tagSample">Load sample</button>
+      <button class="btn secondary" id="tagClear">Clear</button>
+    </div>
+    <pre class="out" id="tagOut">Your cleaned hashtags will appear here…</pre>
+    <p id="tagMeta" class="meta"></p>
+    <p id="tagWarn" class="warn" style="display:none;"></p>
+    <div class="btn-row">
+      <button class="btn primary" id="copyTags">📋 Copy hashtags</button>
+    </div>
+    <p class="status" id="tagStatus"></p>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function cleanHashtags(input) {
+  var parts = String(input || "").split(/[\s,;]+/);
+  var seen = {}, tags = [];
+  parts.forEach(function (p) {
+    var t = p.replace(/^#+/, "").replace(/[^A-Za-z0-9_]/g, "").toLowerCase();
+    if (t && !seen[t]) { seen[t] = true; tags.push("#" + t); }
+  });
+  return tags;
+}
+/* LOGIC-END */
+var input = document.getElementById("tagInput");
+var outEl = document.getElementById("tagOut");
+var meta = document.getElementById("tagMeta");
+var warn = document.getElementById("tagWarn");
+var status = document.getElementById("tagStatus");
+function render() {
+  var tags = cleanHashtags(input.value);
+  outEl.textContent = tags.length ? tags.join(" ") : "Your cleaned hashtags will appear here…";
+  meta.textContent = tags.length ? tags.length + " hashtag" + (tags.length > 1 ? "s" : "") : "";
+  if (tags.length > 30) { warn.style.display = "block"; warn.textContent = "⚠️ Over 30 hashtags — long tag lists look spammy and bury your post. Consider keeping the best ones."; }
+  else warn.style.display = "none";
+}
+input.addEventListener("input", render);
+document.getElementById("tagSample").addEventListener("click", function () {
+  input.value = "#Tech #android, tech, Free Apps, #opensource #Tech #Android!";
+  render();
+});
+document.getElementById("tagClear").addEventListener("click", function () { input.value = ""; render(); });
+document.getElementById("copyTags").addEventListener("click", async function () {
+  var tags = cleanHashtags(input.value);
+  if (!tags.length) { status.textContent = "Nothing to copy yet."; return; }
+  try { await navigator.clipboard.writeText(tags.join(" ")); status.textContent = "✅ Hashtags copied."; }
+  catch (e) { status.textContent = "Copy failed in this browser."; }
+});
+render();
+</script>
+</body>
+</html>
