@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Format Tools — TG Toolkit</title>
+<meta name="description" content="Text formatting tools: spoiler, strikethrough, zalgo, code blocks, quote cards, case converter, morse, binary, sorting, diff and more.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html">Write</a>
+    <a href="format.html" class="active">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🔤 Format</span>
+  <h1>Format <span class="grad">tools</span></h1>
+  <p class="sub">Seventeen small-but-real text tools. Each one works instantly in your browser — type, transform, copy.</p>
+
+  <section class="card tool-section" id="spoiler">
+    <h2>🙈 Spoiler Formatter</h2>
+    <p class="desc">Wrap text in Telegram spoiler markers so it hides until tapped.</p>
+    <textarea id="spIn" placeholder="Text to hide…" style="min-height:90px;"></textarea>
+    <pre class="out" id="spOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="spCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="strike">
+    <h2>̶S̶t̶r̶i̶k̶e̶t̶h̶r̶o̶u̶g̶h̶ / Underline text</h2>
+    <p class="desc">Real Unicode struck-through or underlined characters — they render anywhere, including Telegram, because they are characters, not formatting.</p>
+    <textarea id="stIn" placeholder="Text…" style="min-height:90px;"></textarea>
+    <label for="stMode">Style</label>
+    <select id="stMode"><option value="strike">Strikethrough</option><option value="under">Underline</option></select>
+    <pre class="out" id="stOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="stCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="zalgo">
+    <h2>Z̷a̷l̷g̷o̷ / Glitch text</h2>
+    <p class="desc">Adds combining marks above and below letters for the glitch look. Same input always gives the same output.</p>
+    <textarea id="zaIn" placeholder="Text…" style="min-height:90px;"></textarea>
+    <pre class="out" id="zaOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="zaCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="codeblock">
+    <h2>💻 Code Block Builder</h2>
+    <p class="desc">Wrap code in a fenced block, optionally with a language label.</p>
+    <label for="cbLang">Language (optional)</label>
+    <input id="cbLang" type="text" placeholder="e.g. python">
+    <textarea id="cbIn" placeholder="Paste code…" style="min-height:120px;"></textarea>
+    <pre class="out" id="cbOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="cbCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="quotecard">
+    <h2>🖼️ Quote Card</h2>
+    <p class="desc">Render a quote as a shareable image (1080×1080 PNG) — drawn on canvas, downloaded from your browser.</p>
+    <label for="qcText">Quote</label>
+    <textarea id="qcText" placeholder="The quote…" style="min-height:90px;"></textarea>
+    <label for="qcAuthor">Author (optional)</label>
+    <input id="qcAuthor" type="text" placeholder="e.g. Salman">
+    <div class="btn-row"><button class="btn primary" id="qcDraw">Draw card</button><button class="btn secondary" id="qcDl" style="display:none;">Download PNG</button></div>
+    <div style="margin-top:14px;"><canvas id="qcCanvas" width="1080" height="1080" style="width:100%;max-width:420px;height:auto;border-radius:12px;"></canvas></div>
+  </section>
+
+  <section class="card tool-section" id="case">
+    <h2>🔠 Case Converter</h2>
+    <p class="desc">Convert between UPPER, lower, Title Case, Sentence case, camelCase and snake_case.</p>
+    <textarea id="ccIn" placeholder="Text…" style="min-height:90px;"></textarea>
+    <label for="ccMode">Convert to</label>
+    <select id="ccMode"><option value="upper">UPPER CASE</option><option value="lower">lower case</option><option value="title">Title Case</option><option value="sentence">Sentence case</option><option value="camel">camelCase</option><option value="snake">snake_case</option></select>
+    <pre class="out" id="ccOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="ccCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="reverse">
+    <h2>🔄 Text Reverser</h2>
+    <p class="desc">Reverses text (emoji-safe).</p>
+    <textarea id="rvIn" placeholder="Text…" style="min-height:90px;"></textarea>
+    <pre class="out" id="rvOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="rvCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="morse">
+    <h2>📻 Morse Code</h2>
+    <p class="desc">Encode text to Morse, or decode Morse back to text.</p>
+    <textarea id="moIn" placeholder="Text or morse (dots, dashes, spaces; / between words)…" style="min-height:90px;"></textarea>
+    <label for="moMode">Direction</label>
+    <select id="moMode"><option value="enc">Text → Morse</option><option value="dec">Morse → Text</option></select>
+    <pre class="out" id="moOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="moCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="binhex">
+    <h2>🔢 Binary / Hex Converter</h2>
+    <p class="desc">Convert text to binary or hex, and back again.</p>
+    <textarea id="bhIn" placeholder="Text, binary (space-separated) or hex…" style="min-height:90px;"></textarea>
+    <label for="bhMode">Convert</label>
+    <select id="bhMode"><option value="bin">Text → Binary</option><option value="hex">Text → Hex</option><option value="bin2">Binary → Text</option><option value="hex2">Hex → Text</option></select>
+    <pre class="out" id="bhOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="bhCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="spaces">
+    <h2>🧹 Remove Extra Spaces</h2>
+    <p class="desc">Collapses repeated spaces and trims every line.</p>
+    <textarea id="rsIn" placeholder="Messy   text…" style="min-height:90px;"></textarea>
+    <pre class="out" id="rsOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="rsCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="join">
+    <h2>🔗 Join Lines</h2>
+    <p class="desc">Join lines with a separator you choose.</p>
+    <textarea id="jnIn" placeholder="One&#10;per&#10;line" style="min-height:90px;"></textarea>
+    <label for="jnSep">Separator</label>
+    <select id="jnSep"><option value=" ">Space</option><option value=", ">Comma + space</option><option value=" | ">Pipe</option></select>
+    <pre class="out" id="jnOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="jnCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="sort">
+    <h2>🔤 Sort Lines</h2>
+    <p class="desc">Sort lines alphabetically, A–Z or Z–A.</p>
+    <textarea id="soIn" placeholder="Lines…" style="min-height:90px;"></textarea>
+    <label for="soMode">Order</label>
+    <select id="soMode"><option value="az">A → Z</option><option value="za">Z → A</option></select>
+    <pre class="out" id="soOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="soCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="dedupe">
+    <h2>🧽 Remove Duplicate Lines</h2>
+    <p class="desc">Keeps the first occurrence of each line, in order.</p>
+    <textarea id="ddIn" placeholder="Lines…" style="min-height:90px;"></textarea>
+    <pre class="out" id="ddOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="ddCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="emoji">
+    <h2>🚫 Emoji Remover</h2>
+    <p class="desc">Strips emoji characters from text, keeping the words.</p>
+    <textarea id="emIn" placeholder="Text with emoji 😀…" style="min-height:90px;"></textarea>
+    <pre class="out" id="emOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="emCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="diff">
+    <h2>🔍 Text Diff</h2>
+    <p class="desc">Compare two drafts line by line: removed lines, added lines, unchanged lines.</p>
+    <label for="dfA">Original</label>
+    <textarea id="dfA" placeholder="Original text…" style="min-height:90px;"></textarea>
+    <label for="dfB">Changed</label>
+    <textarea id="dfB" placeholder="Changed text…" style="min-height:90px;"></textarea>
+    <pre class="out" id="dfOut">—</pre>
+  </section>
+
+  <section class="card tool-section" id="lorem">
+    <h2>📄 Lorem / Placeholder Text</h2>
+    <p class="desc">Generate classic placeholder paragraphs for mockups.</p>
+    <label for="loN">Paragraphs</label>
+    <select id="loN"><option>1</option><option selected>2</option><option>3</option><option>5</option></select>
+    <pre class="out" id="loOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="loGen">Generate</button><button class="btn secondary" id="loCopy">Copy</button></div>
+  </section>
+
+  <section class="card tool-section" id="slug">
+    <h2>🔗 Slug Generator</h2>
+    <p class="desc">Turn a title into a clean URL slug.</p>
+    <input id="slIn" type="text" placeholder="e.g. My First Telegram Post!">
+    <pre class="out" id="slOut">—</pre>
+    <div class="btn-row"><button class="btn secondary" id="slCopy">Copy</button></div>
+  </section>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function spoilerWrap(t) { var s = String(t || "").trim(); return s ? "||" + s + "||" : ""; }
+function strikeUnder(t, mode) {
+  var mark = mode === "under" ? "̲" : "̶";
+  return String(t || "").split("").map(function (c) { return c === "\n" ? c : c + mark; }).join("");
+}
+var ZALGO_UP = ["̋", "̏", "̑", "̐", "̒", "̓", "̔", "̕", "̖", "̗"];
+var ZALGO_DN = ["̙", "̜", "̝", "̞", "̟", "̠", "̡", "̢", "̣"];
+function zalgo(t) {
+  var out = "", idx = 0;
+  String(t || "").split("").forEach(function (c) {
+    if (c === " " || c === "\n") { out += c; return; }
+    out += c + ZALGO_UP[idx % ZALGO_UP.length] + ZALGO_DN[idx % ZALGO_DN.length];
+    idx++;
+  });
+  return out;
+}
+function codeBlock(code, lang) { return "```" + (lang || "") + "\n" + String(code || "") + "\n```"; }
+function convertCase(t, mode) {
+  var s = String(t || "");
+  if (mode === "upper") return s.toUpperCase();
+  if (mode === "lower") return s.toLowerCase();
+  if (mode === "title") return s.replace(/\w\S*/g, function (w) { return w[0].toUpperCase() + w.slice(1).toLowerCase(); });
+  if (mode === "sentence") return s.toLowerCase().replace(/(^\s*[a-z])|([.!?]\s+[a-z])/g, function (m) { return m.toUpperCase(); });
+  var words = s.toLowerCase().split(/[^A-Za-z0-9]+/).filter(Boolean);
+  if (mode === "camel") return words.map(function (w, i) { return i === 0 ? w : w[0].toUpperCase() + w.slice(1); }).join("");
+  if (mode === "snake") return words.join("_");
+  return s;
+}
+function reverseText(t) { return Array.from(String(t || "")).reverse().join(""); }
+var MORSE = { A: ".-", B: "-...", C: "-.-.", D: "-..", E: ".", F: "..-.", G: "--.", H: "....", I: "..", J: ".---", K: "-.-", L: ".-..", M: "--", N: "-.", O: "---", P: ".--.", Q: "--.-", R: ".-.", S: "...", T: "-", U: "..-", V: "...-", W: ".--", X: "-..-", Y: "-.--", Z: "--..", 0: "-----", 1: ".----", 2: "..---", 3: "...--", 4: "....-", 5: ".....", 6: "-....", 7: "--...", 8: "---..", 9: "----." };
+var MORSE_REV = {};
+Object.keys(MORSE).forEach(function (k) { MORSE_REV[MORSE[k]] = k; });
+function morseEncode(t) {
+  return String(t || "").toUpperCase().split(" ").map(function (w) {
+    return w.split("").map(function (c) { return MORSE[c] || ""; }).filter(Boolean).join(" ");
+  }).join(" / ");
+}
+function morseDecode(t) {
+  return String(t || "").split(" / ").map(function (w) {
+    return w.trim().split(/\s+/).map(function (c) { return MORSE_REV[c] || ""; }).join("");
+  }).join(" ");
+}
+function toBin(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(2).padStart(8, "0"); }).join(" "); }
+function toHex(t) { return Array.from(String(t || "")).map(function (c) { return c.charCodeAt(0).toString(16).padStart(2, "0"); }).join(" "); }
+function fromBin(t) { return String(t || "").trim().split(/\s+/).map(function (b) { return String.fromCharCode(parseInt(b, 2)); }).join(""); }
+function fromHex(t) { return (String(t || "").replace(/\s+/g, "").match(/../g) || []).map(function (h) { return String.fromCharCode(parseInt(h, 16)); }).join(""); }
+function cleanSpaces(t) { return String(t || "").split("\n").map(function (l) { return l.replace(/\s+/g, " ").trim(); }).join("\n"); }
+function joinLines(t, sep) { return String(t || "").split("\n").map(function (l) { return l.trim(); }).filter(Boolean).join(sep); }
+function sortLines(t, dir) { var ls = String(t || "").split("\n"); ls.sort(); if (dir === "za") ls.reverse(); return ls.join("\n"); }
+function dedupeLines(t) { var seen = {}, out = []; String(t || "").split("\n").forEach(function (l) { if (!seen[l]) { seen[l] = true; out.push(l); } }); return out.join("\n"); }
+function removeEmoji(t) { return String(t || "").replace(/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}\u{2B00}-\u{2BFF}\u{FE0F}]/gu, ""); }
+function lineDiff(a, b) {
+  var A = String(a || "").split("\n"), B = String(b || "").split("\n");
+  var dp = [];
+  for (var i = 0; i <= A.length; i++) { dp[i] = []; for (var j = 0; j <= B.length; j++) dp[i][j] = 0; }
+  for (var x = A.length - 1; x >= 0; x--) for (var y = B.length - 1; y >= 0; y--) dp[x][y] = A[x] === B[y] ? dp[x + 1][y + 1] + 1 : Math.max(dp[x + 1][y], dp[x][y + 1]);
+  var out = [], p = 0, q = 0;
+  while (p < A.length && q < B.length) {
+    if (A[p] === B[q]) { out.push("  " + A[p]); p++; q++; }
+    else if (dp[p + 1][q] >= dp[p][q + 1]) { out.push("- " + A[p]); p++; }
+    else { out.push("+ " + B[q]); q++; }
+  }
+  while (p < A.length) { out.push("- " + A[p]); p++; }
+  while (q < B.length) { out.push("+ " + B[q]); q++; }
+  return out.join("\n");
+}
+var LOREM_S = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit.", "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.", "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.", "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia."];
+function lorem(n) {
+  var paras = [];
+  for (var i = 0; i < n; i++) {
+    var sents = [];
+    for (var j = 0; j < 4; j++) sents.push(LOREM_S[(i * 4 + j) % LOREM_S.length]);
+    paras.push(sents.join(" "));
+  }
+  return paras.join("\n\n");
+}
+function slugify(t) {
+  return String(t || "").toLowerCase().trim().replace(/[^a-z0-9\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-");
+}
+function wrapQuoteLines(ctx, text, maxWidth) {
+  var words = String(text || "").split(/\s+/).filter(Boolean);
+  var lines = [], line = "";
+  words.forEach(function (w) {
+    var test = line ? line + " " + w : w;
+    if (ctx.measureText(test).width > maxWidth && line) { lines.push(line); line = w; }
+    else line = test;
+  });
+  if (line) lines.push(line);
+  return lines;
+}
+/* LOGIC-END */
+function bindSimple(inId, outId, copyId, fn) {
+  var inp = document.getElementById(inId), out = document.getElementById(outId);
+  function render() { out.textContent = fn() || "—"; }
+  inp.addEventListener("input", render);
+  var extra = Array.prototype.slice.call(arguments, 4);
+  extra.forEach(function (id) { document.getElementById(id).addEventListener("input", render); document.getElementById(id).addEventListener("change", render); });
+  if (copyId) document.getElementById(copyId).addEventListener("click", function () {
+    var v = out.textContent; if (v && v !== "—") navigator.clipboard.writeText(v).catch(function () {});
+  });
+  render();
+}
+bindSimple("spIn", "spOut", "spCopy", function () { return spoilerWrap(document.getElementById("spIn").value); });
+bindSimple("stIn", "stOut", "stCopy", function () { return strikeUnder(document.getElementById("stIn").value, document.getElementById("stMode").value); }, "stMode");
+bindSimple("zaIn", "zaOut", "zaCopy", function () { return zalgo(document.getElementById("zaIn").value); });
+bindSimple("cbIn", "cbOut", "cbCopy", function () { return codeBlock(document.getElementById("cbIn").value, document.getElementById("cbLang").value.trim()); }, "cbLang");
+bindSimple("ccIn", "ccOut", "ccCopy", function () { return convertCase(document.getElementById("ccIn").value, document.getElementById("ccMode").value); }, "ccMode");
+bindSimple("rvIn", "rvOut", "rvCopy", function () { return reverseText(document.getElementById("rvIn").value); });
+bindSimple("moIn", "moOut", "moCopy", function () {
+  var m = document.getElementById("moMode").value;
+  return m === "enc" ? morseEncode(document.getElementById("moIn").value) : morseDecode(document.getElementById("moIn").value);
+}, "moMode");
+bindSimple("bhIn", "bhOut", "bhCopy", function () {
+  var m = document.getElementById("bhMode").value, v = document.getElementById("bhIn").value;
+  try {
+    if (m === "bin") return toBin(v);
+    if (m === "hex") return toHex(v);
+    if (m === "bin2") return fromBin(v);
+    return fromHex(v);
+  } catch (e) { return "⚠️ Could not convert — check the input format."; }
+}, "bhMode");
+bindSimple("rsIn", "rsOut", "rsCopy", function () { return cleanSpaces(document.getElementById("rsIn").value); });
+bindSimple("jnIn", "jnOut", "jnCopy", function () { return joinLines(document.getElementById("jnIn").value, document.getElementById("jnSep").value); }, "jnSep");
+bindSimple("soIn", "soOut", "soCopy", function () { return sortLines(document.getElementById("soIn").value, document.getElementById("soMode").value); }, "soMode");
+bindSimple("ddIn", "ddOut", "ddCopy", function () { return dedupeLines(document.getElementById("ddIn").value); });
+bindSimple("emIn", "emOut", "emCopy", function () { return removeEmoji(document.getElementById("emIn").value); });
+bindSimple("dfA", "dfOut", null, function () { return lineDiff(document.getElementById("dfA").value, document.getElementById("dfB").value); }, "dfB");
+bindSimple("slIn", "slOut", "slCopy", function () { return slugify(document.getElementById("slIn").value); });
+function renderLorem() { document.getElementById("loOut").textContent = lorem(parseInt(document.getElementById("loN").value, 10)); }
+document.getElementById("loGen").addEventListener("click", renderLorem);
+document.getElementById("loN").addEventListener("change", renderLorem);
+document.getElementById("loCopy").addEventListener("click", function () { navigator.clipboard.writeText(document.getElementById("loOut").textContent).catch(function () {}); });
+renderLorem();
+// Quote card canvas
+document.getElementById("qcDraw").addEventListener("click", function () {
+  var canvas = document.getElementById("qcCanvas");
+  var ctx = canvas.getContext("2d");
+  var g = ctx.createLinearGradient(0, 0, 1080, 1080);
+  g.addColorStop(0, "#0f172a"); g.addColorStop(1, "#312e81");
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 1080, 1080);
+  ctx.fillStyle = "#2aabee"; ctx.fillRect(90, 120, 90, 10);
+  ctx.fillStyle = "#ffffff"; ctx.font = "600 54px Georgia, serif";
+  var lines = wrapQuoteLines(ctx, document.getElementById("qcText").value || "Your quote here", 880);
+  lines.forEach(function (l, i) { ctx.fillText(l, 100, 260 + i * 78); });
+  var author = document.getElementById("qcAuthor").value.trim();
+  if (author) { ctx.fillStyle = "#c7d2fe"; ctx.font = "500 40px system-ui, sans-serif"; ctx.fillText("— " + author, 100, 300 + lines.length * 78 + 40); }
+  ctx.fillStyle = "#8a90a8"; ctx.font = "400 28px system-ui, sans-serif"; ctx.fillText("TG Toolkit", 100, 990);
+  document.getElementById("qcDl").style.display = "";
+});
+document.getElementById("qcDl").addEventListener("click", function () {
+  var a = document.createElement("a");
+  a.href = document.getElementById("qcCanvas").toDataURL("image/png");
+  a.download = "quote-card.png"; a.click();
+});
+</script>
+</body>
+</html>
