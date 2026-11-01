@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bot Developer Tools — TG Toolkit</title>
+<meta name="description" content="Telegram Bot API developer tools: inline keyboard JSON builder and bot commands JSON builder. Plus the markdown-to-HTML converter and deep link builder.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="formatter.html">Formatter</a>
+    <a href="write.html">Write</a>
+    <a href="format.html">Format</a>
+    <a href="links2.html">Links</a>
+    <a href="ai.html">AI</a>
+    <a href="media.html">Media</a>
+    <a href="growth.html">Growth</a>
+    <a href="dev.html" class="active">Developer</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🤖 Bot API</span>
+  <h1>Bot developer <span class="grad">tools</span></h1>
+  <p class="sub">Build valid Bot API JSON for inline keyboards and bot commands — copy it straight into your bot code. (For markdown → Telegram HTML, see the <a href="md2html.html">converter</a>; for bot deep links, see <a href="links2.html#deeplink">Deep Link Builder</a>.)</p>
+
+  <section class="card tool-section" id="keyboard">
+    <h2>⌨️ Inline Keyboard JSON Builder</h2>
+    <p class="desc">Add rows of buttons (text + URL or callback data) — get the inline_keyboard JSON for sendMessage.</p>
+    <div id="kbRows"></div>
+    <div class="btn-row"><button class="btn secondary" id="kbAddRow">+ Add row</button></div>
+    <pre class="out" id="kbOut">—</pre>
+    <p id="kbErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn primary" id="kbCopy">📋 Copy JSON</button></div>
+    <p class="status" id="kbStatus"></p>
+  </section>
+
+  <section class="card tool-section" id="commands">
+    <h2>💬 Bot Commands JSON Builder</h2>
+    <p class="desc">Build the commands array for setMyCommands — command (lowercase, no slash) + description.</p>
+    <div id="cmdRows"></div>
+    <div class="btn-row"><button class="btn secondary" id="cmdAdd">+ Add command</button></div>
+    <pre class="out" id="cmdOut">—</pre>
+    <p id="cmdErr" class="warn" style="display:none;"></p>
+    <div class="btn-row"><button class="btn primary" id="cmdCopy">📋 Copy JSON</button></div>
+    <p class="status" id="cmdStatus"></p>
+  </section>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function buildKeyboard(rows) {
+  var kb = [];
+  var errors = [];
+  rows.forEach(function (row, ri) {
+    var buttons = [];
+    row.forEach(function (b) {
+      var text = String(b.text || "").trim();
+      var url = String(b.url || "").trim();
+      var cb = String(b.callback || "").trim();
+      if (!text && !url && !cb) return;
+      if (!text) { errors.push("Row " + (ri + 1) + ": button needs text."); return; }
+      if (url && !/^https?:\/\//i.test(url)) { errors.push("Row " + (ri + 1) + ": URL must start with http:// or https://"); return; }
+      if (url) buttons.push({ text: text, url: url });
+      else if (cb) buttons.push({ text: text, callback_data: cb });
+      else errors.push("Row " + (ri + 1) + ": button needs a URL or callback data.");
+    });
+    if (buttons.length) kb.push(buttons);
+  });
+  if (!kb.length) return { error: "Add at least one complete button (text + URL or callback data).", json: "" };
+  if (errors.length) return { error: errors[0], json: "" };
+  return { error: null, json: JSON.stringify({ inline_keyboard: kb }, null, 2) };
+}
+function buildCommands(rows) {
+  var cmds = [];
+  var errors = [];
+  rows.forEach(function (r, i) {
+    var cmd = String(r.command || "").trim().replace(/^\//, "").toLowerCase();
+    var desc = String(r.description || "").trim();
+    if (!cmd && !desc) return;
+    if (!/^[a-z0-9_]{1,32}$/.test(cmd)) { errors.push("Row " + (i + 1) + ": command must be 1–32 lowercase letters, numbers or underscores."); return; }
+    if (!desc) { errors.push("Row " + (i + 1) + ": description is required."); return; }
+    cmds.push({ command: cmd, description: desc });
+  });
+  if (!cmds.length) return { error: "Add at least one command.", json: "" };
+  if (errors.length) return { error: errors[0], json: "" };
+  return { error: null, json: JSON.stringify(cmds, null, 2) };
+}
+/* LOGIC-END */
+// Keyboard UI
+var kbRowsEl = document.getElementById("kbRows");
+function kbRowData() {
+  return Array.from(kbRowsEl.querySelectorAll(".kb-row")).map(function (row) {
+    return Array.from(row.querySelectorAll(".kb-btn")).map(function (b) {
+      return { text: b.querySelector(".kb-text").value, url: b.querySelector(".kb-url").value, callback: b.querySelector(".kb-cb").value };
+    });
+  });
+}
+function kbButtonEl() {
+  var d = document.createElement("div");
+  d.className = "kb-btn";
+  d.style.cssText = "display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:8px;margin-top:8px;";
+  ["kb-text", "kb-url", "kb-cb"].forEach(function (cls, i) {
+    var inp = document.createElement("input");
+    inp.className = cls; inp.type = "text";
+    inp.placeholder = ["Button text", "URL (optional)", "callback_data (optional)"][i];
+    inp.addEventListener("input", renderKb);
+    d.appendChild(inp);
+  });
+  var del = document.createElement("button");
+  del.className = "small-btn"; del.textContent = "✕";
+  del.addEventListener("click", function () { d.remove(); renderKb(); });
+  d.appendChild(del);
+  return d;
+}
+function kbAddRow() {
+  var row = document.createElement("div");
+  row.className = "kb-row";
+  var lbl = document.createElement("label");
+  lbl.textContent = "Row " + (kbRowsEl.children.length + 1);
+  row.appendChild(lbl);
+  row.appendChild(kbButtonEl());
+  var addBtn = document.createElement("button");
+  addBtn.className = "small-btn"; addBtn.textContent = "+ Button in this row"; addBtn.style.marginTop = "8px";
+  addBtn.addEventListener("click", function () { row.insertBefore(kbButtonEl(), addBtn); renderKb(); });
+  row.appendChild(addBtn);
+  kbRowsEl.appendChild(row);
+  renderKb();
+}
+function renderKb() {
+  var res = buildKeyboard(kbRowData());
+  var err = document.getElementById("kbErr");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  document.getElementById("kbOut").textContent = res.json || "—";
+}
+document.getElementById("kbAddRow").addEventListener("click", kbAddRow);
+document.getElementById("kbCopy").addEventListener("click", function () {
+  var v = document.getElementById("kbOut").textContent;
+  if (v && v !== "—") navigator.clipboard.writeText(v).then(function () { document.getElementById("kbStatus").textContent = "✅ Keyboard JSON copied."; }).catch(function () {});
+});
+// Commands UI
+var cmdRowsEl = document.getElementById("cmdRows");
+function cmdRowData() {
+  return Array.from(cmdRowsEl.querySelectorAll(".cmd-row")).map(function (row) {
+    return { command: row.querySelector(".cmd-c").value, description: row.querySelector(".cmd-d").value };
+  });
+}
+function cmdAddRow(c, d) {
+  var row = document.createElement("div");
+  row.className = "cmd-row";
+  row.style.cssText = "display:grid;grid-template-columns:1fr 2fr auto;gap:8px;margin-top:8px;";
+  var ci = document.createElement("input"); ci.className = "cmd-c"; ci.type = "text"; ci.placeholder = "start"; ci.value = c || "";
+  var di = document.createElement("input"); di.className = "cmd-d"; di.type = "text"; di.placeholder = "Start the bot"; di.value = d || "";
+  ci.addEventListener("input", renderCmd); di.addEventListener("input", renderCmd);
+  var del = document.createElement("button"); del.className = "small-btn"; del.textContent = "✕";
+  del.addEventListener("click", function () { row.remove(); renderCmd(); });
+  row.appendChild(ci); row.appendChild(di); row.appendChild(del);
+  cmdRowsEl.appendChild(row);
+}
+function renderCmd() {
+  var res = buildCommands(cmdRowData());
+  var err = document.getElementById("cmdErr");
+  if (res.error) { err.style.display = "block"; err.textContent = "⚠️ " + res.error; } else err.style.display = "none";
+  document.getElementById("cmdOut").textContent = res.json || "—";
+}
+document.getElementById("cmdAdd").addEventListener("click", function () { cmdAddRow("", ""); renderCmd(); });
+document.getElementById("cmdCopy").addEventListener("click", function () {
+  var v = document.getElementById("cmdOut").textContent;
+  if (v && v !== "—") navigator.clipboard.writeText(v).then(function () { document.getElementById("cmdStatus").textContent = "✅ Commands JSON copied."; }).catch(function () {});
+});
+kbAddRow();
+cmdAddRow("start", "Start the bot");
+cmdAddRow("help", "Show help");
+renderCmd();
+</script>
+</body>
+</html>
