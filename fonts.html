@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stylish Fonts — TG Toolkit</title>
+<meta name="description" content="Turn plain text into Unicode fancy styles — bold, italic, script, monospace and more — with a copy button for each style.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div class="topbar">
+  <a class="logo" href="index.html">✈️ TG <span>Toolkit</span></a>
+  <nav>
+    <a href="formatter.html">Formatter</a>
+    <a href="fonts.html" class="active">Fonts</a>
+    <a href="counter.html">Counter</a>
+    <a href="links.html">Links</a>
+    <a href="md2html.html">MD → HTML</a>
+    <a href="poll.html">Poll</a>
+    <a href="hashtags.html">Hashtags</a>
+    <a href="preview.html">Preview</a>
+  </nav>
+</div>
+<div class="wrap">
+  <span class="badge">🔤 Unicode styles</span>
+  <h1>Stylish <span class="grad">Fonts</span></h1>
+  <p class="sub">Type once, get your text in many real Unicode styles. These are actual characters — not formatting — so they keep their look anywhere you paste them, including Telegram.</p>
+  <div class="card" style="margin-top:20px;">
+    <label for="fontInput">Your text</label>
+    <textarea id="fontInput" placeholder="Type something… e.g. Hello Telegram" style="min-height:110px;"></textarea>
+    <div id="fontRows"></div>
+    <p class="status" id="fontStatus"></p>
+  </div>
+</div>
+<footer>
+  <p><a href="index.html">← All tools</a> · TG Toolkit — no backend, no tracking. Source: <a href="https://github.com/ryoaonetsuki/telegram-formatter">github.com/ryoaonetsuki/telegram-formatter</a> (MIT).</p>
+</footer>
+<script>
+/* LOGIC-START */
+function cp(base, ch, off) { return String.fromCodePoint(base + (ch.charCodeAt(0) - off)); }
+var EXCEPTIONS = {
+  script: { B: 0x212C, E: 0x2130, F: 0x2131, H: 0x210B, I: 0x2110, L: 0x2112, M: 0x2133, R: 0x211B },
+  double: { C: 0x2102, H: 0x210D, N: 0x2115, P: 0x2119, Q: 0x211A, R: 0x211D, Z: 0x2124 },
+  italic: { h: 0x210E }
+};
+function mapChar(style, ch) {
+  if (ch >= "A" && ch <= "Z") {
+    if (EXCEPTIONS[style] && EXCEPTIONS[style][ch]) return String.fromCodePoint(EXCEPTIONS[style][ch]);
+    var bases = { bold: 0x1D400, italic: 0x1D434, bolditalic: 0x1D468, mono: 0x1D670, script: 0x1D49C, double: 0x1D538, sansbold: 0x1D5D4, circled: 0x24B6 };
+    return bases[style] ? cp(bases[style], ch, 65) : ch;
+  }
+  if (ch >= "a" && ch <= "z") {
+    if (EXCEPTIONS[style] && EXCEPTIONS[style][ch]) return String.fromCodePoint(EXCEPTIONS[style][ch]);
+    var basesL = { bold: 0x1D41A, italic: 0x1D44E, bolditalic: 0x1D482, mono: 0x1D68A, script: 0x1D4B6, double: 0x1D552, sansbold: 0x1D5EE, circled: 0x24D0 };
+    return basesL[style] ? cp(basesL[style], ch, 97) : ch;
+  }
+  if (ch >= "0" && ch <= "9") {
+    var basesD = { bold: 0x1D7CE, mono: 0x1D7F6, double: 0x1D7D8, sansbold: 0x1D7EC };
+    if (style === "circled") return ch === "0" ? "⓪" : String.fromCodePoint(0x2460 + (ch.charCodeAt(0) - 49));
+    return basesD[style] ? cp(basesD[style], ch, 48) : ch;
+  }
+  return ch;
+}
+function stylize(style, text) { return String(text || "").split("").map(function (c) { return mapChar(style, c); }).join(""); }
+var STYLES = [
+  ["bold", "𝐁𝐨𝐥𝐝 serif"], ["italic", "Italic serif"], ["bolditalic", "Bold italic"],
+  ["mono", "Monospace"], ["script", "Script"], ["double", "Double-struck"],
+  ["sansbold", "Sans bold"], ["circled", "Circled"]
+];
+/* LOGIC-END */
+var input = document.getElementById("fontInput");
+var rows = document.getElementById("fontRows");
+var status = document.getElementById("fontStatus");
+function renderFonts() {
+  var val = input.value;
+  rows.innerHTML = "";
+  STYLES.forEach(function (pair) {
+    var style = pair[0], name = pair[1];
+    var out = stylize(style, val);
+    var row = document.createElement("div");
+    row.className = "font-row";
+    var left = document.createElement("div");
+    var fn = document.createElement("div"); fn.className = "fname"; fn.textContent = name;
+    var ft = document.createElement("div"); ft.className = "ftext"; ft.textContent = out || "—";
+    left.appendChild(fn); left.appendChild(ft);
+    var btn = document.createElement("button");
+    btn.className = "small-btn"; btn.textContent = "Copy";
+    btn.addEventListener("click", async function () {
+      if (!out) return;
+      try { await navigator.clipboard.writeText(out); status.textContent = "✅ Copied " + name + " style."; }
+      catch (e) { status.textContent = "Copy failed in this browser."; }
+    });
+    row.appendChild(left); row.appendChild(btn);
+    rows.appendChild(row);
+  });
+}
+input.addEventListener("input", renderFonts);
+renderFonts();
+</script>
+</body>
+</html>
